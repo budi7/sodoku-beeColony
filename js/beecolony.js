@@ -159,7 +159,7 @@ var debug = new function(){
 	}
 
 	this.showModeledData = function(array){
-		console.log('|' + array[0] + '|' + array[1] + '|' + array[2] + '|' + array[3] + '|' + array[4] + '|' + array[5] + '|' + array[6] + '|' + array[7] + '|' + array[8] + '|           | 82| 83| 84| 85| 86| 87| 88| 89| 90|');
+		console.log('|' + array[0] + '|' + array[1] + '|' + array[2] + '|' + array[3] + '|' + array[4] + '|' + array[5] + '|' + array[6] + '|' + array[7] + '|' + array[8] + '|           |' + array[81] + '| 83| 84| 85| 86| 87| 88| 89| 90|');
 		console.log('|' + array[9] + '|' + array[10] + '|' + array[11] + '|' + array[12] + '|' + array[13] + '|' + array[14] + '|' + array[15] + '|' + array[16] + '|' + array[17] + '|           | 91| 92| 93| 94| 95| 96| 97| 98| 99|');
 		console.log('|' + array[18] + '| 20| 21| 22| 23| 24| 25| 26| 27|           |100|101|102|103|104|105|106|107|108|');
 		console.log('|' + array[27] + '| 29| 30| 31| 32| 33| 34| 35| 36|           |109|110|111|112|113|114|115|116|117|');
