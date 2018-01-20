@@ -1,0 +1,1109 @@
+ <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.6/popper.min.js"></script> -->
+
+ <LINK href="css/bootstrap.min.css" rel="stylesheet" type="text/css">
+ <LINK href="css/tambahan.css" rel="stylesheet" type="text/css">
+ <script src="js/jquery-3.2.1.min.js"></script>
+ <script src="js/beecolony.js"></script>
+ <!-- <script src="bootstrap.min.js"></script> -->
+
+ <style type="text/css">
+		
+ </style>
+ <title>Samurai Sudoku</title>
+ <body>
+
+ 	<nav class="navbar navbar-expand-lg navbar-light fixed-top bg-light">
+ 		<a class="navbar-brand" href="#">Samurai Soduku Solver</a>
+ 		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+ 			<span class="navbar-toggler-icon"></span>
+ 		</button>
+
+ 		<div class="collapse navbar-collapse" id="navbarSupportedContent">
+ 			<ul class="navbar-nav mr-auto text-right">
+ 				<li class="nav-item active">
+ 					<a class="nav-link" href="#">Solve <span class="sr-only">(current)</span></a>
+ 				</li>
+ 				<li class="nav-item">
+ 					<a class="nav-link" href="#">About</a>
+ 				</li>
+ 			</ul>
+ 		</div>
+ 	</nav>
+
+ 	<div class="container" style="padding-top: 48px;">
+ 		<div class="row">
+ 			<div class="text-center" style="width:600px;padding-top: 55px;height: calc(100% - 56px);">
+
+ 				<!-- samurai sudoku-->
+ 				<table id="soal" class="table-sm text-center table-bordered borderless">
+ 					<!-- Table Atas -->
+ 					<!-- Baris 1 -->
+ 					<tr>
+ 						<td id="a-1-1" class="border-top border-left"><input type="text" name="text"></input></td>
+ 						<td id="a-1-2" class="border-top"><input type="text" name="text"></input></td>
+ 						<td id="a-1-3" class="border-top"><input type="text" name="text"></input></td>
+ 						<td id="a-2-1" class="border-top border-left"><input type="text" name="text"></input></td>
+ 						<td id="a-2-2" class="border-top"><input type="text" name="text"></input></td>
+ 						<td id="a-2-3" class="border-top"><input type="text" name="text"></input></td>
+ 						<td id="a-3-1" class="border-top border-left"><input type="text" name="text"></input></td>
+ 						<td id="a-3-2" class="border-top"><input type="text" name="text"></input></td>
+ 						<td id="a-3-3" class="border-top border-right"><input type="text" name="text"></input></td>
+ 						<td class="borderless"></td>
+ 						<td class="borderless"></td>
+ 						<td class="borderless"></td>
+ 						<td id="b-1-1" class="border-top border-left"><input type="text" name="text"></input></td>
+ 						<td id="b-1-2" class="border-top"><input type="text" name="text"></input></td>
+ 						<td id="b-1-3" class="border-top"><input type="text" name="text"></input></td>
+ 						<td id="b-2-1" class="border-top border-left"><input type="text" name="text"></input></td>
+ 						<td id="b-2-2" class="border-top"><input type="text" name="text"></input></td>
+ 						<td id="b-2-3" class="border-top"><input type="text" name="text"></input></td>
+ 						<td id="b-3-1" class="border-top border-left"><input type="text" name="text"></input></td>
+ 						<td id="b-3-2" class="border-top"><input type="text" name="text"></input></td> 						
+ 						<td id="b-3-3" class="border-top border-right"><input type="text" name="text"></input></td>				
+ 					</tr>
+ 					<!-- Baris 2 -->
+ 					<tr>
+ 						<td id="a-1-4" class="border-left"><input type="text" name="text"></input></td>
+ 						<td id="a-1-5"><input type="text" name="text"></input></td>
+ 						<td id="a-1-6"><input type="text" name="text"></input></td>
+ 						<td id="a-2-4" class="border-left"><input type="text" name="text"></input></td>
+ 						<td id="a-2-5"><input type="text" name="text"></input></td>
+ 						<td id="a-2-6"><input type="text" name="text"></input></td>
+ 						<td id="a-3-4" class="border-left"><input type="text" name="text"></input></td>
+ 						<td id="a-3-5"><input type="text" name="text"></input></td>
+ 						<td id="a-3-6" class="border-right"><input type="text" name="text"></input></td>
+ 						<td class="borderless"></td>
+ 						<td class="borderless"></td>
+ 						<td class="borderless"></td>
+ 						<td id="b-1-4" class="border-left"><input type="text" name="text"></input></td>
+ 						<td id="b-1-5"><input type="text" name="text"></input></td>
+ 						<td id="b-1-6"><input type="text" name="text"></input></td>
+ 						<td id="b-2-4" class="border-left"><input type="text" name="text"></input></td>
+ 						<td id="b-2-5"><input type="text" name="text"></input></td>
+ 						<td id="b-2-6"><input type="text" name="text"></input></td>
+ 						<td id="b-3-4" class="border-left"><input type="text" name="text"></input></td>
+ 						<td id="b-3-5"><input type="text" name="text"></input></td> 						
+ 						<td id="b-3-6" class="border-right"><input type="text" name="text"></input></td>				
+ 					</tr>
+ 					<!-- Baris 3 -->
+ 					<tr>
+ 						<td id="a-1-7" class="border-bottom border-left"><input type="text" name="text"></input></td>
+ 						<td id="a-1-8" class="border-bottom"><input type="text" name="text"></input></td>
+ 						<td id="a-1-9" class="border-bottom"><input type="text" name="text"></input></td>
+ 						<td id="a-2-7" class="border-bottom border-left"><input type="text" name="text"></input></td>
+ 						<td id="a-2-8" class="border-bottom"><input type="text" name="text"></input></td>
+ 						<td id="a-2-9" class="border-bottom"><input type="text" name="text"></input></td>
+ 						<td id="a-3-7" class="border-bottom border-left"><input type="text" name="text"></input></td>
+ 						<td id="a-3-8" class="border-bottom"><input type="text" name="text"></input></td>
+ 						<td id="a-3-9" class="border-bottom border-right"><input type="text" name="text"></input></td>
+ 						<td class="borderless"></td>
+ 						<td class="borderless"></td>
+ 						<td class="borderless"></td>
+ 						<td id="b-1-7" class="border-bottom border-left"><input type="text" name="text"></input></td>
+ 						<td id="b-1-8" class="border-bottom"><input type="text" name="text"></input></td>
+ 						<td id="b-1-9" class="border-bottom"><input type="text" name="text"></input></td>
+ 						<td id="b-2-7" class="border-bottom border-left"><input type="text" name="text"></input></td>
+ 						<td id="b-2-8" class="border-bottom"><input type="text" name="text"></input></td>
+ 						<td id="b-2-9" class="border-bottom"><input type="text" name="text"></input></td>
+ 						<td id="b-3-7" class="border-bottom border-left"><input type="text" name="text"></input></td>
+ 						<td id="b-3-8" class="border-bottom"><input type="text" name="text"></input></td> 						
+ 						<td id="b-3-9" class="border-bottom border-right"><input type="text" name="text"></input></td>					
+ 					</tr>
+ 					<!-- Baris 4 -->
+ 					<tr>
+ 						<td id="a-4-1" class="border-left"><input type="text" name="text"></input></td>
+ 						<td id="a-4-2"><input type="text" name="text"></input></td>
+ 						<td id="a-4-3"><input type="text" name="text"></input></td>
+ 						<td id="a-5-1" class="border-left"><input type="text" name="text"></input></td>
+ 						<td id="a-5-2"><input type="text" name="text"></input></td>
+ 						<td id="a-5-3"><input type="text" name="text"></input></td>
+ 						<td id="a-6-1" class="border-left"><input type="text" name="text"></input></td>
+ 						<td id="a-6-2"><input type="text" name="text"></input></td>
+ 						<td id="a-6-3" class="border-right"><input type="text" name="text"></input></td>
+ 						<td class="borderless"></td>
+ 						<td class="borderless"></td>
+ 						<td class="borderless"></td>
+ 						<td id="b-4-1" class="border-left"><input type="text" name="text"></input></td>
+ 						<td id="b-4-2"><input type="text" name="text"></input></td>
+ 						<td id="b-4-3"><input type="text" name="text"></input></td>
+ 						<td id="b-5-1" class="border-left"><input type="text" name="text"></input></td>
+ 						<td id="b-5-2"><input type="text" name="text"></input></td>
+ 						<td id="b-5-3"><input type="text" name="text"></input></td>
+ 						<td id="b-6-1" class="border-left"><input type="text" name="text"></input></td>
+ 						<td id="b-6-2"><input type="text" name="text"></input></td> 						
+ 						<td id="b-6-3" class="border-right"><input type="text" name="text"></input></td>					
+ 					</tr>
+ 					<!-- Baris 5 -->
+ 					<tr>
+ 						<td id="a-4-4" class="border-left"><input type="text" name="text"></input></td>
+ 						<td id="a-4-5"><input type="text" name="text"></input></td>
+ 						<td id="a-4-6"><input type="text" name="text"></input></td>
+ 						<td id="a-5-4" class="border-left"><input type="text" name="text"></input></td>
+ 						<td id="a-5-5"><input type="text" name="text"></input></td>
+ 						<td id="a-5-6"><input type="text" name="text"></input></td>
+ 						<td id="a-6-4" class="border-left"><input type="text" name="text"></input></td>
+ 						<td id="a-6-5"><input type="text" name="text"></input></td>
+ 						<td id="a-6-6" class="border-right"><input type="text" name="text"></input></td>
+ 						<td class="borderless"></td>
+ 						<td class="borderless"></td>
+ 						<td class="borderless"></td>
+ 						<td id="b-4-4" class="border-left"><input type="text" name="text"></input></td>
+ 						<td id="b-4-5"><input type="text" name="text"></input></td>
+ 						<td id="b-4-6"><input type="text" name="text"></input></td>
+ 						<td id="b-5-4" class="border-left"><input type="text" name="text"></input></td>
+ 						<td id="b-5-5"><input type="text" name="text"></input></td>
+ 						<td id="b-5-6"><input type="text" name="text"></input></td>
+ 						<td id="b-6-4" class="border-left"><input type="text" name="text"></input></td>
+ 						<td id="b-6-5"><input type="text" name="text"></input></td> 						
+ 						<td id="b-6-6" class="border-right"><input type="text" name="text"></input></td>
+ 					</tr>
+ 					<!-- Baris 6 -->
+ 					<tr>
+ 						<td id="a-4-7" class="border-bottom border-left"><input type="text" name="text"></input></td>
+ 						<td id="a-4-8" class="border-bottom"><input type="text" name="text"></input></td>
+ 						<td id="a-4-9" class="border-bottom"><input type="text" name="text"></input></td>
+ 						<td id="a-5-7" class="border-bottom border-left"><input type="text" name="text"></input></td>
+ 						<td id="a-5-8" class="border-bottom"><input type="text" name="text"></input></td>
+ 						<td id="a-5-9" class="border-bottom"><input type="text" name="text"></input></td>
+ 						<td id="a-6-7" class="border-bottom border-left"><input type="text" name="text"></input></td>
+ 						<td id="a-6-8" class="border-bottom"><input type="text" name="text"></input></td>
+ 						<td id="a-6-9" class="border-bottom border-right"><input type="text" name="text"></input></td>
+ 						<td class="borderless"></td>
+ 						<td class="borderless"></td>
+ 						<td class="borderless"></td>
+ 						<td id="b-4-7" class="border-bottom border-left"><input type="text" name="text"></input></td>
+ 						<td id="b-4-8" class="border-bottom"><input type="text" name="text"></input></td>
+ 						<td id="b-4-9" class="border-bottom"><input type="text" name="text"></input></td>
+ 						<td id="b-5-7" class="border-bottom border-left"><input type="text" name="text"></input></td>
+ 						<td id="b-5-8" class="border-bottom"><input type="text" name="text"></input></td>
+ 						<td id="b-5-9" class="border-bottom"><input type="text" name="text"></input></td>
+ 						<td id="b-6-7" class="border-bottom border-left"><input type="text" name="text"></input></td>
+ 						<td id="b-6-8" class="border-bottom"><input type="text" name="text"></input></td> 						
+ 						<td id="b-6-9" class="border-bottom border-right"><input type="text" name="text"></input></td>							
+ 					</tr>
+ 					<!-- Baris 7 C sudoku-->
+ 					<tr>
+ 						<td id="a-7-1" class="border-left"><input type="text" name="text"></input></td>
+ 						<td id="a-7-2"><input type="text" name="text"></input></td>
+ 						<td id="a-7-3"><input type="text" name="text"></input></td>
+ 						<td id="a-8-1" class="border-left"><input type="text" name="text"></input></td>
+ 						<td id="a-8-2"><input type="text" name="text"></input></td>
+ 						<td id="a-8-3"><input type="text" name="text"></input></td>
+ 						<td id="c-1-1" class="border-left"><input type="text" name="text"></input></td>
+ 						<td id="c-1-2"><input type="text" name="text"></input></td>
+ 						<td id="c-1-3" class="border-right"><input type="text" name="text"></input></td>
+ 						<td id="c-2-1" class="border-top"><input type="text" name="text"></input></td>
+ 						<td id="c-2-2" class="border-top"><input type="text" name="text"></input></td>
+ 						<td id="c-2-3" class="border-top"><input type="text" name="text"></input></td>
+ 						<td id="c-3-1" class="border-left"><input type="text" name="text"></input></td>
+ 						<td id="c-3-2"><input type="text" name="text"></input></td>
+ 						<td id="c-3-3"><input type="text" name="text"></input></td>
+ 						<td id="b-8-1" class="border-left"><input type="text" name="text"></input></td>
+ 						<td id="b-8-2"><input type="text" name="text"></input></td>
+ 						<td id="b-8-3"><input type="text" name="text"></input></td>
+ 						<td id="b-9-1" class="border-left"><input type="text" name="text"></input></td>
+ 						<td id="b-9-2"><input type="text" name="text"></input></td> 						
+ 						<td id="b-9-3" class="border-right"><input type="text" name="text"></input></td>			
+ 					</tr>
+ 					<!-- Baris 8 C sudoku -->
+ 					<tr>
+ 						<td id="a-7-4" class="border-left"><input type="text" name="text"></input></td>
+ 						<td id="a-7-5"><input type="text" name="text"></input></td>
+ 						<td id="a-7-6"><input type="text" name="text"></input></td>
+ 						<td id="a-8-4" class="border-left"><input type="text" name="text"></input></td>
+ 						<td id="a-8-5"><input type="text" name="text"></input></td>
+ 						<td id="a-8-6"><input type="text" name="text"></input></td>
+ 						<td id="c-1-4" class="border-left"><input type="text" name="text"></input></td>
+ 						<td id="c-1-5"><input type="text" name="text"></input></td>
+ 						<td id="c-1-6" class="border-right"><input type="text" name="text"></input></td>
+ 						<td id="c-2-4"><input type="text" name="text"></input></td>
+ 						<td id="c-2-5"><input type="text" name="text"></input></td>
+ 						<td id="c-2-6"><input type="text" name="text"></input></td>
+ 						<td id="c-3-4" class="border-left"><input type="text" name="text"></input></td>
+ 						<td id="c-3-5"><input type="text" name="text"></input></td>
+ 						<td id="c-3-6"><input type="text" name="text"></input></td>
+ 						<td id="b-8-4" class="border-left"><input type="text" name="text"></input></td>
+ 						<td id="b-8-5"><input type="text" name="text"></input></td>
+ 						<td id="b-8-6"><input type="text" name="text"></input></td>
+ 						<td id="b-9-4" class="border-left"><input type="text" name="text"></input></td>
+ 						<td id="b-9-5"><input type="text" name="text"></input></td> 						
+ 						<td id="b-9-6" class="border-right"><input type="text" name="text"></input></td>						
+ 					</tr>
+ 					<!-- Baris 9 C sudoku-->
+ 					<tr>
+ 					 	<td id="a-7-7" class="border-bottom border-left"><input type="text" name="text"></input></td>
+ 						<td id="a-7-8" class="border-bottom"><input type="text" name="text"></input></td>
+ 						<td id="a-7-9" class="border-bottom"><input type="text" name="text"></input></td>
+ 						<td id="a-8-7" class="border-bottom border-left"><input type="text" name="text"></input></td>
+ 						<td id="a-8-8" class="border-bottom"><input type="text" name="text"></input></td>
+ 						<td id="a-8-9" class="border-bottom"><input type="text" name="text"></input></td>
+ 						<td id="c-1-7" class="border-bottom border-left"><input type="text" name="text"></input></td>
+ 						<td id="c-1-8" class="border-bottom"><input type="text" name="text"></input></td>
+ 						<td id="c-1-9" class="border-bottom border-right"><input type="text" name="text"></input></td>
+ 						<td id="c-2-7" class="border-bottom"><input type="text" name="text"></input></td>
+ 						<td id="c-2-8" class="border-bottom"><input type="text" name="text"></input></td>
+ 						<td id="c-2-9" class="border-bottom"><input type="text" name="text"></input></td>
+ 						<td id="c-3-7" class="border-bottom border-left"><input type="text" name="text"></input></td>
+ 						<td id="c-3-8" class="border-bottom"><input type="text" name="text"></input></td>
+ 						<td id="c-3-9" class="border-bottom"><input type="text" name="text"></input></td>
+ 						<td id="b-8-7" class="border-bottom border-left"><input type="text" name="text"></input></td>
+ 						<td id="b-8-8" class="border-bottom"><input type="text" name="text"></input></td>
+ 						<td id="b-8-9" class="border-bottom"><input type="text" name="text"></input></td>
+ 						<td id="b-9-7" class="border-bottom border-left"><input type="text" name="text"></input></td>
+ 						<td id="b-9-8" class="border-bottom"><input type="text" name="text"></input></td> 						
+ 						<td id="b-9-9" class="border-bottom border-right"><input type="text" name="text"></input></td>
+ 					</tr>
+
+ 					<!-- Table Tengah -->
+ 					<!-- Baris 1 C sudoku-->
+ 					<tr>
+ 						<td class="borderless"></td>
+ 						<td class="borderless"></td>
+ 						<td class="borderless"></td>
+ 						<td class="borderless"></td>
+ 						<td class="borderless"></td>
+ 						<td class="borderless"></td>
+ 						<td id="c-4-1" class="border-left"><input type="text" name="text"></input></td>
+ 						<td id="c-4-2"><input type="text" name="text"></input></td>
+ 						<td id="c-4-3"><input type="text" name="text"></input></td>
+ 						<td id="c-5-1" class="border-left"><input type="text" name="text"></input></td>
+ 						<td id="c-5-2"><input type="text" name="text"></input></td>
+ 						<td id="c-5-3"><input type="text" name="text"></input></td>
+ 						<td id="c-6-1" class="border-left"><input type="text" name="text"></input></td>
+ 						<td id="c-6-2"><input type="text" name="text"></input></td>
+ 						<td id="c-6-3" class="border-right"><input type="text" name="text"></input></td>
+ 						<td class="borderless"></td>
+ 						<td class="borderless"></td>
+ 						<td class="borderless"></td>
+ 						<td class="borderless"></td>
+ 						<td class="borderless"></td> 						
+ 						<td class="borderless"></td>					
+ 					</tr>
+
+ 					<!-- Baris 2 C sudoku-->
+ 					<tr>
+ 						<td class="borderless"></td>
+ 						<td class="borderless"></td>
+ 						<td class="borderless"></td>
+ 						<td class="borderless"></td>
+ 						<td class="borderless"></td>
+ 						<td class="borderless"></td>
+ 						<td id="c-4-4" class="border-left"><input type="text" name="text"></input></td>
+ 						<td id="c-4-5"><input type="text" name="text"></input></td>
+ 						<td id="c-4-6"><input type="text" name="text"></input></td>
+ 						<td id="c-5-4" class="border-left"><input type="text" name="text"></input></td>
+ 						<td id="c-5-5"><input type="text" name="text"></input></td>
+ 						<td id="c-5-6"><input type="text" name="text"></input></td>
+ 						<td id="c-6-4" class="border-left"><input type="text" name="text"></input></td>
+ 						<td id="c-6-5"><input type="text" name="text"></input></td>
+ 						<td id="c-6-6" class="border-right"><input type="text" name="text"></input></td>
+ 						<td class="borderless"></td>
+ 						<td class="borderless"></td>
+ 						<td class="borderless"></td>
+ 						<td class="borderless"></td>
+ 						<td class="borderless"></td> 						
+ 						<td class="borderless"></td>					
+ 					</tr> 		
+
+ 					<!-- Baris 3 C sudoku-->
+ 					<tr>
+ 						<td class="borderless"></td>
+ 						<td class="borderless"></td>
+ 						<td class="borderless"></td>
+ 						<td class="borderless"></td>
+ 						<td class="borderless"></td>
+ 						<td class="borderless"></td>
+ 						<td id="c-4-7" class="border-left"><input type="text" name="text"></input></td>
+ 						<td id="c-4-8"><input type="text" name="text"></input></td>
+ 						<td id="c-4-9"><input type="text" name="text"></input></td>
+ 						<td id="c-5-7" class="border-left"><input type="text" name="text"></input></td>
+ 						<td id="c-5-8"><input type="text" name="text"></input></td>
+ 						<td id="c-5-9"><input type="text" name="text"></input></td>
+ 						<td id="c-6-7" class="border-left"><input type="text" name="text"></input></td>
+ 						<td id="c-6-8"><input type="text" name="text"></input></td>
+ 						<td id="c-6-9" class="border-right"><input type="text" name="text"></input></td>
+ 						<td class="borderless"></td>
+ 						<td class="borderless"></td>
+ 						<td class="borderless"></td>
+ 						<td class="borderless"></td>
+ 						<td class="borderless"></td> 						
+ 						<td class="borderless"></td>					
+ 					</tr>  								
+
+ 					<!-- Table Bawah -->
+ 					<!-- Baris 1 C sudoku-->
+ 					<tr>
+ 						<td id="d-1-1" class="border-top border-left"><input type="text" name="text"></input></td>
+ 						<td id="d-1-2" class="border-top"><input type="text" name="text"></input></td>
+ 						<td id="d-1-3" class="border-top"><input type="text" name="text"></input></td>
+ 						<td id="d-2-1" class="border-top border-left"><input type="text" name="text"></input></td>
+ 						<td id="d-2-2" class="border-top"><input type="text" name="text"></input></td>
+ 						<td id="d-2-3" class="border-top"><input type="text" name="text"></input></td>
+ 						<td id="c-7-1" class="border-top border-left"><input type="text" name="text"></input></td>
+ 						<td id="c-7-2" class="border-top"><input type="text" name="text"></input></td>
+ 						<td id="c-7-3" class="border-top border-right"><input type="text" name="text"></input></td>
+ 						<td id="c-8-1" class="border-top"><input type="text" name="text"></input></td>
+ 						<td id="c-8-2" class="border-top"><input type="text" name="text"></input></td>
+ 						<td id="c-8-3" class="border-top"><input type="text" name="text"></input></td>
+ 						<td id="c-9-1" class="border-top border-left"><input type="text" name="text"></input></td>
+ 						<td id="c-9-2" class="border-top"><input type="text" name="text"></input></td>
+ 						<td id="c-9-3" class="border-top"><input type="text" name="text"></input></td>
+ 						<td id="e-2-1" class="border-top border-left"><input type="text" name="text"></input></td>
+ 						<td id="e-2-2" class="border-top"><input type="text" name="text"></input></td>
+ 						<td id="e-2-3" class="border-top"><input type="text" name="text"></input></td>
+ 						<td id="e-3-1" class="border-top border-left"><input type="text" name="text"></input></td>
+ 						<td id="e-3-2" class="border-top"><input type="text" name="text"></input></td> 						
+ 						<td id="e-3-3" class="border-top border-right"><input type="text" name="text"></input></td>					
+ 					</tr>
+ 					<!-- Baris 2 C sudoku-->
+ 					<tr>
+ 						<td id="d-1-4" class="border-left"><input type="text" name="text"></input></td>
+ 						<td id="d-1-5"><input type="text" name="text"></input></td>
+ 						<td id="d-1-6"><input type="text" name="text"></input></td>
+ 						<td id="d-2-4" class="border-left"><input type="text" name="text"></input></td>
+ 						<td id="d-2-5"><input type="text" name="text"></input></td>
+ 						<td id="d-2-6"><input type="text" name="text"></input></td>
+ 						<td id="c-7-4" class="border-left"><input type="text" name="text"></input></td>
+ 						<td id="c-7-5"><input type="text" name="text"></input></td>
+ 						<td id="c-7-6" class="border-right"><input type="text" name="text"></input></td>
+ 						<td id="c-8-4"><input type="text" name="text"></input></td>
+ 						<td id="c-8-5"><input type="text" name="text"></input></td>
+ 						<td id="c-8-6"><input type="text" name="text"></input></td>
+ 						<td id="c-9-4" class="border-left"><input type="text" name="text"></input></td>
+ 						<td id="c-9-5"><input type="text" name="text"></input></td>
+ 						<td id="c-9-6"><input type="text" name="text"></input></td>
+ 						<td id="e-2-4" class="border-left"><input type="text" name="text"></input></td>
+ 						<td id="e-2-5"><input type="text" name="text"></input></td>
+ 						<td id="e-2-6"><input type="text" name="text"></input></td>
+ 						<td id="e-3-4" class="border-left"><input type="text" name="text"></input></td>
+ 						<td id="e-3-5"><input type="text" name="text"></input></td> 						
+ 						<td id="e-3-6" class="border-right"><input type="text" name="text"></input></td>						
+ 					</tr>
+ 					<!-- Baris 3 C sudoku-->
+ 					<tr>
+ 					 	<td id="d-1-7" class="border-bottom border-left"><input type="text" name="text"></input></td>
+ 						<td id="d-1-8" class="border-bottom"><input type="text" name="text"></input></td>
+ 						<td id="d-1-9" class="border-bottom"><input type="text" name="text"></input></td>
+ 						<td id="d-2-7" class="border-bottom border-left"><input type="text" name="text"></input></td>
+ 						<td id="d-2-8" class="border-bottom"><input type="text" name="text"></input></td>
+ 						<td id="d-2-9" class="border-bottom"><input type="text" name="text"></input></td>
+ 						<td id="c-7-7" class="border-bottom border-left"><input type="text" name="text"></input></td>
+ 						<td id="c-7-8" class="border-bottom"><input type="text" name="text"></input></td>
+ 						<td id="c-7-9" class="border-bottom border-right"><input type="text" name="text"></input></td>
+ 						<td id="c-8-7" class="border-bottom"><input type="text" name="text"></input></td>
+ 						<td id="c-8-8" class="border-bottom"><input type="text" name="text"></input></td>
+ 						<td id="c-8-9" class="border-bottom"><input type="text" name="text"></input></td>
+ 						<td id="c-9-7" class="border-bottom border-left"><input type="text" name="text"></input></td>
+ 						<td id="c-9-8" class="border-bottom"><input type="text" name="text"></input></td>
+ 						<td id="c-9-9" class="border-bottom"><input type="text" name="text"></input></td>
+ 						<td id="e-2-7" class="border-bottom border-left"><input type="text" name="text"></input></td>
+ 						<td id="e-2-8" class="border-bottom"><input type="text" name="text"></input></td>
+ 						<td id="e-2-9" class="border-bottom"><input type="text" name="text"></input></td>
+ 						<td id="e-3-7" class="border-bottom border-left"><input type="text" name="text"></input></td>
+ 						<td id="e-3-8" class="border-bottom"><input type="text" name="text"></input></td> 						
+ 						<td id="e-3-9" class="border-bottom border-right"><input type="text" name="text"></input></td>				
+ 					</tr>
+					<!-- Baris 4 -->
+ 					<tr>
+ 						<td id="d-4-1" class="border-left"><input type="text" name="text"></input></td>
+ 						<td id="d-4-2"><input type="text" name="text"></input></td>
+ 						<td id="d-4-3"><input type="text" name="text"></input></td>
+ 						<td id="d-5-1" class="border-left"><input type="text" name="text"></input></td>
+ 						<td id="d-5-2"><input type="text" name="text"></input></td>
+ 						<td id="d-5-3"><input type="text" name="text"></input></td>
+ 						<td id="d-6-1" class="border-left"><input type="text" name="text"></input></td>
+ 						<td id="d-6-2"><input type="text" name="text"></input></td>
+ 						<td id="d-6-3" class="border-right"><input type="text" name="text"></input></td>
+ 						<td class="borderless"></td>
+ 						<td class="borderless"></td>
+ 						<td class="borderless"></td>
+ 						<td id="e-4-1" class="border-left"><input type="text" name="text"></input></td>
+ 						<td id="e-4-2"><input type="text" name="text"></input></td>
+ 						<td id="e-4-3"><input type="text" name="text"></input></td>
+ 						<td id="e-5-1" class="border-left"><input type="text" name="text"></input></td>
+ 						<td id="e-5-2"><input type="text" name="text"></input></td>
+ 						<td id="e-5-3"><input type="text" name="text"></input></td>
+ 						<td id="e-6-1" class="border-left"><input type="text" name="text"></input></td>
+ 						<td id="e-6-2"><input type="text" name="text"></input></td> 						
+ 						<td id="e-6-3" class="border-right"><input type="text" name="text"></input></td>						
+ 					</tr>
+ 					<!-- Baris 5 -->
+ 					<tr>
+ 						<td id="d-4-4" class="border-left"><input type="text" name="text"></input></td>
+ 						<td id="d-4-5"><input type="text" name="text"></input></td>
+ 						<td id="d-4-6"><input type="text" name="text"></input></td>
+ 						<td id="d-5-4" class="border-left"><input type="text" name="text"></input></td>
+ 						<td id="d-5-5"><input type="text" name="text"></input></td>
+ 						<td id="d-5-6"><input type="text" name="text"></input></td>
+ 						<td id="d-6-4" class="border-left"><input type="text" name="text"></input></td>
+ 						<td id="d-6-5"><input type="text" name="text"></input></td>
+ 						<td id="d-6-6" class="border-right"><input type="text" name="text"></input></td>
+ 						<td class="borderless"></td>
+ 						<td class="borderless"></td>
+ 						<td class="borderless"></td>
+ 						<td id="e-4-4" class="border-left"><input type="text" name="text"></input></td>
+ 						<td id="e-4-5"><input type="text" name="text"></input></td>
+ 						<td id="e-4-6"><input type="text" name="text"></input></td>
+ 						<td id="e-5-4" class="border-left"><input type="text" name="text"></input></td>
+ 						<td id="e-5-5"><input type="text" name="text"></input></td>
+ 						<td id="e-5-6"><input type="text" name="text"></input></td>
+ 						<td id="e-6-4" class="border-left"><input type="text" name="text"></input></td>
+ 						<td id="e-6-5"><input type="text" name="text"></input></td> 						
+ 						<td id="e-6-6" class="border-right"><input type="text" name="text"></input></td>				
+ 					</tr>
+ 					<!-- Baris 6 --> 
+ 					<tr>
+ 						<td id="d-4-7" class="border-bottom border-left"><input type="text" name="text"></input></td>
+ 						<td id="d-4-8" class="border-bottom"><input type="text" name="text"></input></td>
+ 						<td id="d-4-9" class="border-bottom"><input type="text" name="text"></input></td>
+ 						<td id="d-5-7" class="border-bottom border-left"><input type="text" name="text"></input></td>
+ 						<td id="d-5-8" class="border-bottom"><input type="text" name="text"></input></td>
+ 						<td id="d-5-9" class="border-bottom"><input type="text" name="text"></input></td>
+ 						<td id="d-6-7" class="border-bottom border-left"><input type="text" name="text"></input></td>
+ 						<td id="d-6-8" class="border-bottom"><input type="text" name="text"></input></td>
+ 						<td id="d-6-9" class="border-bottom border-right"><input type="text" name="text"></input></td>
+ 						<td class="borderless"></td>
+ 						<td class="borderless"></td>
+ 						<td class="borderless"></td>
+ 						<td id="e-4-7" class="border-bottom border-left"><input type="text" name="text"></input></td>
+ 						<td id="e-4-8" class="border-bottom"><input type="text" name="text"></input></td>
+ 						<td id="e-4-9" class="border-bottom"><input type="text" name="text"></input></td>
+ 						<td id="e-5-7" class="border-bottom border-left"><input type="text" name="text"></input></td>
+ 						<td id="e-5-8" class="border-bottom"><input type="text" name="text"></input></td>
+ 						<td id="e-5-9" class="border-bottom"><input type="text" name="text"></input></td>
+ 						<td id="e-6-7" class="border-bottom border-left"><input type="text" name="text"></input></td>
+ 						<td id="e-6-8" class="border-bottom"><input type="text" name="text"></input></td> 						
+ 						<td id="e-6-9" class="border-bottom border-right"><input type="text" name="text"></input></td>				
+ 					</tr> 		
+ 					<!-- Baris 7 --> 
+ 					<tr>
+ 						<td id="d-7-1" class="border-left"><input type="text" name="text"></input></td>
+ 						<td id="d-7-2"><input type="text" name="text"></input></td>
+ 						<td id="d-7-3"><input type="text" name="text"></input></td>
+ 						<td id="d-8-1" class="border-left"><input type="text" name="text"></input></td>
+ 						<td id="d-8-2"><input type="text" name="text"></input></td>
+ 						<td id="d-8-3"><input type="text" name="text"></input></td>
+ 						<td id="d-9-1" class="border-left"><input type="text" name="text"></input></td>
+ 						<td id="d-9-2"><input type="text" name="text"></input></td>
+ 						<td id="d-9-3" class="border-right"><input type="text" name="text"></input></td>
+ 						<td class="borderless"></td>
+ 						<td class="borderless"></td>
+ 						<td class="borderless"></td>
+ 						<td id="e-7-1" class="border-left"><input type="text" name="text"></input></td>
+ 						<td id="e-7-2"><input type="text" name="text"></input></td>
+ 						<td id="e-7-3"><input type="text" name="text"></input></td>
+ 						<td id="e-8-1" class="border-left"><input type="text" name="text"></input></td>
+ 						<td id="e-8-2"><input type="text" name="text"></input></td>
+ 						<td id="e-8-3"><input type="text" name="text"></input></td>
+ 						<td id="e-9-1" class="border-left"><input type="text" name="text"></input></td>
+ 						<td id="e-9-2"><input type="text" name="text"></input></td> 						
+ 						<td id="e-9-3" class="border-right"><input type="text" name="text"></input></td>						
+ 					</tr>
+ 					<!-- Baris 8 --> 
+ 					<tr>
+ 						<td id="d-7-4" class="border-left"><input type="text" name="text"></input></td>
+ 						<td id="d-7-5"><input type="text" name="text"></input></td>
+ 						<td id="d-7-6"><input type="text" name="text"></input></td>
+ 						<td id="d-8-4" class="border-left"><input type="text" name="text"></input></td>
+ 						<td id="d-8-5"><input type="text" name="text"></input></td>
+ 						<td id="d-8-6"><input type="text" name="text"></input></td>
+ 						<td id="d-9-4" class="border-left"><input type="text" name="text"></input></td>
+ 						<td id="d-9-5"><input type="text" name="text"></input></td>
+ 						<td id="d-9-6" class="border-right"><input type="text" name="text"></input></td>
+ 						<td class="borderless"></td>
+ 						<td class="borderless"></td>
+ 						<td class="borderless"></td>
+ 						<td id="e-7-4" class="border-left"><input type="text" name="text"></input></td>
+ 						<td id="e-7-5"><input type="text" name="text"></input></td>
+ 						<td id="e-7-6"><input type="text" name="text"></input></td>
+ 						<td id="e-8-4" class="border-left"><input type="text" name="text"></input></td>
+ 						<td id="e-8-5"><input type="text" name="text"></input></td>
+ 						<td id="e-8-6"><input type="text" name="text"></input></td>
+ 						<td id="e-9-4" class="border-left"><input type="text" name="text"></input></td>
+ 						<td id="e-9-5"><input type="text" name="text"></input></td> 						
+ 						<td id="e-9-6" class="border-right"><input type="text" name="text"></input></td>				
+ 					</tr> 	
+ 					<!-- Baris 9--> 
+ 					<tr>
+ 						<td id="d-7-7" class="border-bottom border-left"><input type="text" name="text"></input></td>
+ 						<td id="d-7-8" class="border-bottom"><input type="text" name="text"></input></td>
+ 						<td id="d-7-9" class="border-bottom"><input type="text" name="text"></input></td>
+ 						<td id="d-8-7" class="border-bottom border-left"><input type="text" name="text"></input></td>
+ 						<td id="d-8-8" class="border-bottom"><input type="text" name="text"></input></td>
+ 						<td id="d-8-9" class="border-bottom"><input type="text" name="text"></input></td>
+ 						<td id="d-9-7" class="border-bottom border-left"><input type="text" name="text"></input></td>
+ 						<td id="d-9-8" class="border-bottom"><input type="text" name="text"></input></td>
+ 						<td id="d-9-9" class="border-bottom border-right"><input type="text" name="text"></input></td>
+ 						<td class="borderless"></td>
+ 						<td class="borderless"></td>
+ 						<td class="borderless"></td>
+ 						<td id="e-7-7" class="border-bottom border-left"><input type="text" name="text"></input></td>
+ 						<td id="e-7-8" class="border-bottom"><input type="text" name="text"></input></td>
+ 						<td id="e-7-9" class="border-bottom"><input type="text" name="text"></input></td>
+ 						<td id="e-8-7" class="border-bottom border-left"><input type="text" name="text"></input></td>
+ 						<td id="e-8-8" class="border-bottom"><input type="text" name="text"></input></td>
+ 						<td id="e-8-9" class="border-bottom"><input type="text" name="text"></input></td>
+ 						<td id="e-9-7" class="border-bottom border-left"><input type="text" name="text"></input></td>
+ 						<td id="e-9-8" class="border-bottom"><input type="text" name="text"></input></td> 						
+ 						<td id="e-9-9" class="border-bottom border-right"><input type="text" name="text"></input></td>				
+ 					</tr>  									 								
+
+ 				</table>
+
+ 			</div>
+
+ 			<div style="position: absolute; right: 0px; top: 55px; height: calc(100% - 56px);width:600px;background-color: #efefef;"">
+ 				<div class="col-12 pt-3">
+ 					<div class="row">
+ 						<div class="col-6">
+ 							<h5>Settings</h5>
+
+ 							<form id="form-settings" method="post">
+ 								<div class="form-group">
+ 									<label for="iterasi">Iterasi</label>
+ 									<input type="number" class="form-control" name="iterasi" >
+ 								</div>
+ 								<div class="form-group">
+ 									<label for="bees_emp">Jumlah Bee Employed</label>
+ 									<input type="number" class="form-control" name="bees_emp" >
+ 								</div> 	
+ 								<div class="form-group">
+ 									<label for="bees_onl">Jumlah Bee Onlooker</label>
+ 									<input type="number" class="form-control" name="bees_onl" >
+ 								</div> 	 															
+ 								<button type="submit" class="btn btn-primary">Apply</button>
+ 							</form>
+
+ 						</div>
+ 						<div class="col-6">
+ 							<h5>Result</h5>
+ 							<button type="button" class="btn btn-primary" id="halo">Click ME</button>
+ 							<button type="button" class="btn btn-danger" id="dont">Don't Click ME</button>
+ 						</div>
+ 					</div>
+ 				</div>
+ 			</div> 	
+
+ 		</div>
+ 	</div>
+
+ <script type="text/javascript">
+
+
+// event saat halam selesai diload
+
+// set random number sudoku a
+// $( document ).ready(function() {
+// 	// set random number untuk kotak a-1-5
+// 	setNumber($(document).find("#a-1-1"));
+// 	setNumber($(document).find("#a-1-2"));
+// 	setNumber($(document).find("#a-1-3"));
+// 	setNumber($(document).find("#a-1-4"));
+// 	setNumber($(document).find("#a-1-5"));
+// 	setNumber($(document).find("#a-1-6"));
+// 	setNumber($(document).find("#a-1-7"));
+// 	setNumber($(document).find("#a-1-8"));
+// 	setNumber($(document).find("#a-1-9"));	
+
+// 	setNumber($(document).find("#a-2-1"));
+// 	setNumber($(document).find("#a-2-2"));
+// 	setNumber($(document).find("#a-2-3"));
+// 	setNumber($(document).find("#a-2-4"));
+// 	setNumber($(document).find("#a-2-5"));
+// 	setNumber($(document).find("#a-2-6"));
+// 	setNumber($(document).find("#a-2-7"));
+// 	setNumber($(document).find("#a-2-8"));
+// 	setNumber($(document).find("#a-2-9"));	
+
+// 	setNumber($(document).find("#a-3-1"));
+// 	setNumber($(document).find("#a-3-2"));
+// 	setNumber($(document).find("#a-3-3"));
+// 	setNumber($(document).find("#a-3-4"));
+// 	setNumber($(document).find("#a-3-5"));
+// 	setNumber($(document).find("#a-3-6"));
+// 	setNumber($(document).find("#a-3-7"));
+// 	setNumber($(document).find("#a-3-8"));
+// 	setNumber($(document).find("#a-3-9"));	
+
+// 	setNumber($(document).find("#a-4-1"));
+// 	setNumber($(document).find("#a-4-2"));
+// 	setNumber($(document).find("#a-4-3"));
+// 	setNumber($(document).find("#a-4-4"));
+// 	setNumber($(document).find("#a-4-5"));
+// 	setNumber($(document).find("#a-4-6"));
+// 	setNumber($(document).find("#a-4-7"));
+// 	setNumber($(document).find("#a-4-8"));
+// 	setNumber($(document).find("#a-4-9"));	
+
+// 	setNumber($(document).find("#a-5-1"));
+// 	setNumber($(document).find("#a-5-2"));
+// 	setNumber($(document).find("#a-5-3"));
+// 	setNumber($(document).find("#a-5-4"));
+// 	setNumber($(document).find("#a-5-5"));
+// 	setNumber($(document).find("#a-5-6"));
+// 	setNumber($(document).find("#a-5-7"));
+// 	setNumber($(document).find("#a-5-8"));
+// 	setNumber($(document).find("#a-5-9"));	
+
+// 	setNumber($(document).find("#a-6-1"));
+// 	setNumber($(document).find("#a-6-2"));
+// 	setNumber($(document).find("#a-6-3"));
+// 	setNumber($(document).find("#a-6-4"));
+// 	setNumber($(document).find("#a-6-5"));
+// 	setNumber($(document).find("#a-6-6"));
+// 	setNumber($(document).find("#a-6-7"));
+// 	setNumber($(document).find("#a-6-8"));
+// 	setNumber($(document).find("#a-6-9"));	
+
+// 	setNumber($(document).find("#a-7-1"));
+// 	setNumber($(document).find("#a-7-2"));
+// 	setNumber($(document).find("#a-7-3"));
+// 	setNumber($(document).find("#a-7-4"));
+// 	setNumber($(document).find("#a-7-5"));
+// 	setNumber($(document).find("#a-7-6"));
+// 	setNumber($(document).find("#a-7-7"));
+// 	setNumber($(document).find("#a-7-8"));
+// 	setNumber($(document).find("#a-7-9"));	
+
+// 	setNumber($(document).find("#a-8-1"));
+// 	setNumber($(document).find("#a-8-2"));
+// 	setNumber($(document).find("#a-8-3"));
+// 	setNumber($(document).find("#a-8-4"));
+// 	setNumber($(document).find("#a-8-5"));
+// 	setNumber($(document).find("#a-8-6"));
+// 	setNumber($(document).find("#a-8-7"));
+// 	setNumber($(document).find("#a-8-8"));
+// 	setNumber($(document).find("#a-8-9"));	
+
+// 	setNumber($(document).find("#c-1-1"));
+// 	setNumber($(document).find("#c-1-2"));
+// 	setNumber($(document).find("#c-1-3"));
+// 	setNumber($(document).find("#c-1-4"));
+// 	setNumber($(document).find("#c-1-5"));
+// 	setNumber($(document).find("#c-1-6"));
+// 	setNumber($(document).find("#c-1-7"));
+// 	setNumber($(document).find("#c-1-8"));
+// 	setNumber($(document).find("#c-1-9"));	
+// }); 
+
+// // set random number sudoku b
+// $( document ).ready(function() {
+// 	setNumber($(document).find("#b-1-1"));
+// 	setNumber($(document).find("#b-1-2"));
+// 	setNumber($(document).find("#b-1-3"));
+// 	setNumber($(document).find("#b-1-4"));
+// 	setNumber($(document).find("#b-1-5"));
+// 	setNumber($(document).find("#b-1-6"));
+// 	setNumber($(document).find("#b-1-7"));
+// 	setNumber($(document).find("#b-1-8"));
+// 	setNumber($(document).find("#b-1-9"));	
+
+// 	setNumber($(document).find("#b-2-1"));
+// 	setNumber($(document).find("#b-2-2"));
+// 	setNumber($(document).find("#b-2-3"));
+// 	setNumber($(document).find("#b-2-4"));
+// 	setNumber($(document).find("#b-2-5"));
+// 	setNumber($(document).find("#b-2-6"));
+// 	setNumber($(document).find("#b-2-7"));
+// 	setNumber($(document).find("#b-2-8"));
+// 	setNumber($(document).find("#b-2-9"));	
+
+// 	setNumber($(document).find("#b-3-1"));
+// 	setNumber($(document).find("#b-3-2"));
+// 	setNumber($(document).find("#b-3-3"));
+// 	setNumber($(document).find("#b-3-4"));
+// 	setNumber($(document).find("#b-3-5"));
+// 	setNumber($(document).find("#b-3-6"));
+// 	setNumber($(document).find("#b-3-7"));
+// 	setNumber($(document).find("#b-3-8"));
+// 	setNumber($(document).find("#b-3-9"));	
+
+// 	setNumber($(document).find("#b-4-1"));
+// 	setNumber($(document).find("#b-4-2"));
+// 	setNumber($(document).find("#b-4-3"));
+// 	setNumber($(document).find("#b-4-4"));
+// 	setNumber($(document).find("#b-4-5"));
+// 	setNumber($(document).find("#b-4-6"));
+// 	setNumber($(document).find("#b-4-7"));
+// 	setNumber($(document).find("#b-4-8"));
+// 	setNumber($(document).find("#b-4-9"));	
+
+// 	setNumber($(document).find("#b-5-1"));
+// 	setNumber($(document).find("#b-5-2"));
+// 	setNumber($(document).find("#b-5-3"));
+// 	setNumber($(document).find("#b-5-4"));
+// 	setNumber($(document).find("#b-5-5"));
+// 	setNumber($(document).find("#b-5-6"));
+// 	setNumber($(document).find("#b-5-7"));
+// 	setNumber($(document).find("#b-5-8"));
+// 	setNumber($(document).find("#b-5-9"));	
+
+// 	setNumber($(document).find("#b-6-1"));
+// 	setNumber($(document).find("#b-6-2"));
+// 	setNumber($(document).find("#b-6-3"));
+// 	setNumber($(document).find("#b-6-4"));
+// 	setNumber($(document).find("#b-6-5"));
+// 	setNumber($(document).find("#b-6-6"));
+// 	setNumber($(document).find("#b-6-7"));
+// 	setNumber($(document).find("#b-6-8"));
+// 	setNumber($(document).find("#b-6-9"));	
+
+// 	setNumber($(document).find("#c-3-1"));
+// 	setNumber($(document).find("#c-3-2"));
+// 	setNumber($(document).find("#c-3-3"));
+// 	setNumber($(document).find("#c-3-4"));
+// 	setNumber($(document).find("#c-3-5"));
+// 	setNumber($(document).find("#c-3-6"));
+// 	setNumber($(document).find("#c-3-7"));
+// 	setNumber($(document).find("#c-3-8"));
+// 	setNumber($(document).find("#c-3-9"));	
+
+// 	setNumber($(document).find("#b-8-1"));
+// 	setNumber($(document).find("#b-8-2"));
+// 	setNumber($(document).find("#b-8-3"));
+// 	setNumber($(document).find("#b-8-4"));
+// 	setNumber($(document).find("#b-8-5"));
+// 	setNumber($(document).find("#b-8-6"));
+// 	setNumber($(document).find("#b-8-7"));
+// 	setNumber($(document).find("#b-8-8"));
+// 	setNumber($(document).find("#b-8-9"));	
+
+// 	setNumber($(document).find("#b-9-1"));
+// 	setNumber($(document).find("#b-9-2"));
+// 	setNumber($(document).find("#b-9-3"));
+// 	setNumber($(document).find("#b-9-4"));
+// 	setNumber($(document).find("#b-9-5"));
+// 	setNumber($(document).find("#b-9-6"));
+// 	setNumber($(document).find("#b-9-7"));
+// 	setNumber($(document).find("#b-9-8"));
+// 	setNumber($(document).find("#b-9-9"));
+// }); 	
+
+// // set random number sudoku c
+// $( document ).ready(function() {
+// 	setNumber($(document).find("#c-2-1"));
+// 	setNumber($(document).find("#c-2-2"));
+// 	setNumber($(document).find("#c-2-3"));
+// 	setNumber($(document).find("#c-2-4"));
+// 	setNumber($(document).find("#c-2-5"));
+// 	setNumber($(document).find("#c-2-6"));
+// 	setNumber($(document).find("#c-2-7"));
+// 	setNumber($(document).find("#c-2-8"));
+// 	setNumber($(document).find("#c-2-9"));	
+
+// 	setNumber($(document).find("#c-4-1"));
+// 	setNumber($(document).find("#c-4-2"));
+// 	setNumber($(document).find("#c-4-3"));
+// 	setNumber($(document).find("#c-4-4"));
+// 	setNumber($(document).find("#c-4-5"));
+// 	setNumber($(document).find("#c-4-6"));
+// 	setNumber($(document).find("#c-4-7"));
+// 	setNumber($(document).find("#c-4-8"));
+// 	setNumber($(document).find("#c-4-9"));	
+
+// 	setNumber($(document).find("#c-5-1"));
+// 	setNumber($(document).find("#c-5-2"));
+// 	setNumber($(document).find("#c-5-3"));
+// 	setNumber($(document).find("#c-5-4"));
+// 	setNumber($(document).find("#c-5-5"));
+// 	setNumber($(document).find("#c-5-6"));
+// 	setNumber($(document).find("#c-5-7"));
+// 	setNumber($(document).find("#c-5-8"));
+// 	setNumber($(document).find("#c-5-9"));	
+
+// 	setNumber($(document).find("#c-6-1"));
+// 	setNumber($(document).find("#c-6-2"));
+// 	setNumber($(document).find("#c-6-3"));
+// 	setNumber($(document).find("#c-6-4"));
+// 	setNumber($(document).find("#c-6-5"));
+// 	setNumber($(document).find("#c-6-6"));
+// 	setNumber($(document).find("#c-6-7"));
+// 	setNumber($(document).find("#c-6-8"));
+// 	setNumber($(document).find("#c-6-9"));		
+
+// 	setNumber($(document).find("#c-8-1"));
+// 	setNumber($(document).find("#c-8-2"));
+// 	setNumber($(document).find("#c-8-3"));
+// 	setNumber($(document).find("#c-8-4"));
+// 	setNumber($(document).find("#c-8-5"));
+// 	setNumber($(document).find("#c-8-6"));
+// 	setNumber($(document).find("#c-8-7"));
+// 	setNumber($(document).find("#c-8-8"));
+// 	setNumber($(document).find("#c-8-9"));
+// });
+
+// // set random number sudoku d
+// $( document ).ready(function() {
+// 	// set random number untuk kotak a-1-5
+// 	setNumber($(document).find("#d-1-1"));
+// 	setNumber($(document).find("#d-1-2"));
+// 	setNumber($(document).find("#d-1-3"));
+// 	setNumber($(document).find("#d-1-4"));
+// 	setNumber($(document).find("#d-1-5"));
+// 	setNumber($(document).find("#d-1-6"));
+// 	setNumber($(document).find("#d-1-7"));
+// 	setNumber($(document).find("#d-1-8"));
+// 	setNumber($(document).find("#d-1-9"));	
+
+// 	setNumber($(document).find("#d-2-1"));
+// 	setNumber($(document).find("#d-2-2"));
+// 	setNumber($(document).find("#d-2-3"));
+// 	setNumber($(document).find("#d-2-4"));
+// 	setNumber($(document).find("#d-2-5"));
+// 	setNumber($(document).find("#d-2-6"));
+// 	setNumber($(document).find("#d-2-7"));
+// 	setNumber($(document).find("#d-2-8"));
+// 	setNumber($(document).find("#d-2-9"));	
+
+// 	setNumber($(document).find("#c-7-1"));
+// 	setNumber($(document).find("#c-7-2"));
+// 	setNumber($(document).find("#c-7-3"));
+// 	setNumber($(document).find("#c-7-4"));
+// 	setNumber($(document).find("#c-7-5"));
+// 	setNumber($(document).find("#c-7-6"));
+// 	setNumber($(document).find("#c-7-7"));
+// 	setNumber($(document).find("#c-7-8"));
+// 	setNumber($(document).find("#c-7-9"));	
+
+// 	setNumber($(document).find("#d-4-1"));
+// 	setNumber($(document).find("#d-4-2"));
+// 	setNumber($(document).find("#d-4-3"));
+// 	setNumber($(document).find("#d-4-4"));
+// 	setNumber($(document).find("#d-4-5"));
+// 	setNumber($(document).find("#d-4-6"));
+// 	setNumber($(document).find("#d-4-7"));
+// 	setNumber($(document).find("#d-4-8"));
+// 	setNumber($(document).find("#d-4-9"));	
+
+// 	setNumber($(document).find("#d-5-1"));
+// 	setNumber($(document).find("#d-5-2"));
+// 	setNumber($(document).find("#d-5-3"));
+// 	setNumber($(document).find("#d-5-4"));
+// 	setNumber($(document).find("#d-5-5"));
+// 	setNumber($(document).find("#d-5-6"));
+// 	setNumber($(document).find("#d-5-7"));
+// 	setNumber($(document).find("#d-5-8"));
+// 	setNumber($(document).find("#d-5-9"));	
+
+// 	setNumber($(document).find("#d-6-1"));
+// 	setNumber($(document).find("#d-6-2"));
+// 	setNumber($(document).find("#d-6-3"));
+// 	setNumber($(document).find("#d-6-4"));
+// 	setNumber($(document).find("#d-6-5"));
+// 	setNumber($(document).find("#d-6-6"));
+// 	setNumber($(document).find("#d-6-7"));
+// 	setNumber($(document).find("#d-6-8"));
+// 	setNumber($(document).find("#d-6-9"));	
+
+// 	setNumber($(document).find("#d-7-1"));
+// 	setNumber($(document).find("#d-7-2"));
+// 	setNumber($(document).find("#d-7-3"));
+// 	setNumber($(document).find("#d-7-4"));
+// 	setNumber($(document).find("#d-7-5"));
+// 	setNumber($(document).find("#d-7-6"));
+// 	setNumber($(document).find("#d-7-7"));
+// 	setNumber($(document).find("#d-7-8"));
+// 	setNumber($(document).find("#d-7-9"));	
+
+// 	setNumber($(document).find("#d-8-1"));
+// 	setNumber($(document).find("#d-8-2"));
+// 	setNumber($(document).find("#d-8-3"));
+// 	setNumber($(document).find("#d-8-4"));
+// 	setNumber($(document).find("#d-8-5"));
+// 	setNumber($(document).find("#d-8-6"));
+// 	setNumber($(document).find("#d-8-7"));
+// 	setNumber($(document).find("#d-8-8"));
+// 	setNumber($(document).find("#d-8-9"));	
+
+// 	setNumber($(document).find("#d-9-1"));
+// 	setNumber($(document).find("#d-9-2"));
+// 	setNumber($(document).find("#d-9-3"));
+// 	setNumber($(document).find("#d-9-4"));
+// 	setNumber($(document).find("#d-9-5"));
+// 	setNumber($(document).find("#d-9-6"));
+// 	setNumber($(document).find("#d-9-7"));
+// 	setNumber($(document).find("#d-9-8"));
+// 	setNumber($(document).find("#d-9-9"));	
+// });
+
+// // set random number sudoku 
+// $( document ).ready(function() {
+// 	setNumber($(document).find("#c-9-1"));
+// 	setNumber($(document).find("#c-9-2"));
+// 	setNumber($(document).find("#c-9-3"));
+// 	setNumber($(document).find("#c-9-4"));
+// 	setNumber($(document).find("#c-9-5"));
+// 	setNumber($(document).find("#c-9-6"));
+// 	setNumber($(document).find("#c-9-7"));
+// 	setNumber($(document).find("#c-9-8"));
+// 	setNumber($(document).find("#c-9-9"));	
+
+// 	setNumber($(document).find("#e-2-1"));
+// 	setNumber($(document).find("#e-2-2"));
+// 	setNumber($(document).find("#e-2-3"));
+// 	setNumber($(document).find("#e-2-4"));
+// 	setNumber($(document).find("#e-2-5"));
+// 	setNumber($(document).find("#e-2-6"));
+// 	setNumber($(document).find("#e-2-7"));
+// 	setNumber($(document).find("#e-2-8"));
+// 	setNumber($(document).find("#e-2-9"));	
+
+// 	setNumber($(document).find("#e-3-1"));
+// 	setNumber($(document).find("#e-3-2"));
+// 	setNumber($(document).find("#e-3-3"));
+// 	setNumber($(document).find("#e-3-4"));
+// 	setNumber($(document).find("#e-3-5"));
+// 	setNumber($(document).find("#e-3-6"));
+// 	setNumber($(document).find("#e-3-7"));
+// 	setNumber($(document).find("#e-3-8"));
+// 	setNumber($(document).find("#e-3-9"));	
+
+// 	setNumber($(document).find("#e-4-1"));
+// 	setNumber($(document).find("#e-4-2"));
+// 	setNumber($(document).find("#e-4-3"));
+// 	setNumber($(document).find("#e-4-4"));
+// 	setNumber($(document).find("#e-4-5"));
+// 	setNumber($(document).find("#e-4-6"));
+// 	setNumber($(document).find("#e-4-7"));
+// 	setNumber($(document).find("#e-4-8"));
+// 	setNumber($(document).find("#e-4-9"));	
+
+// 	setNumber($(document).find("#e-5-1"));
+// 	setNumber($(document).find("#e-5-2"));
+// 	setNumber($(document).find("#e-5-3"));
+// 	setNumber($(document).find("#e-5-4"));
+// 	setNumber($(document).find("#e-5-5"));
+// 	setNumber($(document).find("#e-5-6"));
+// 	setNumber($(document).find("#e-5-7"));
+// 	setNumber($(document).find("#e-5-8"));
+// 	setNumber($(document).find("#e-5-9"));	
+
+// 	setNumber($(document).find("#e-6-1"));
+// 	setNumber($(document).find("#e-6-2"));
+// 	setNumber($(document).find("#e-6-3"));
+// 	setNumber($(document).find("#e-6-4"));
+// 	setNumber($(document).find("#e-6-5"));
+// 	setNumber($(document).find("#e-6-6"));
+// 	setNumber($(document).find("#e-6-7"));
+// 	setNumber($(document).find("#e-6-8"));
+// 	setNumber($(document).find("#e-6-9"));	
+
+// 	setNumber($(document).find("#e-7-1"));
+// 	setNumber($(document).find("#e-7-2"));
+// 	setNumber($(document).find("#e-7-3"));
+// 	setNumber($(document).find("#e-7-4"));
+// 	setNumber($(document).find("#e-7-5"));
+// 	setNumber($(document).find("#e-7-6"));
+// 	setNumber($(document).find("#e-7-7"));
+// 	setNumber($(document).find("#e-7-8"));
+// 	setNumber($(document).find("#e-7-9"));	
+
+// 	setNumber($(document).find("#e-8-1"));
+// 	setNumber($(document).find("#e-8-2"));
+// 	setNumber($(document).find("#e-8-3"));
+// 	setNumber($(document).find("#e-8-4"));
+// 	setNumber($(document).find("#e-8-5"));
+// 	setNumber($(document).find("#e-8-6"));
+// 	setNumber($(document).find("#e-8-7"));
+// 	setNumber($(document).find("#e-8-8"));
+// 	setNumber($(document).find("#e-8-9"));	
+
+// 	setNumber($(document).find("#e-9-1"));
+// 	setNumber($(document).find("#e-9-2"));
+// 	setNumber($(document).find("#e-9-3"));
+// 	setNumber($(document).find("#e-9-4"));
+// 	setNumber($(document).find("#e-9-5"));
+// 	setNumber($(document).find("#e-9-6"));
+// 	setNumber($(document).find("#e-9-7"));
+// 	setNumber($(document).find("#e-9-8"));
+// 	setNumber($(document).find("#e-9-9"));
+// }); 
+
+// $( document ).ready(function() {
+// 	generateSoalC();
+// }); 
+
+
+function generateSoalC(){
+	// init array 
+	var arr = new Array(9);
+	for (var i = 0; i < 9; i++) {
+		arr[i] = new Array(9);
+	}
+
+
+	// row
+	for (y = 0; y < 1; y++) { 
+		// col
+		for (x= 0; x < 9; x++) { 
+
+			var kembar = false;
+			var temp;
+			var limiter = 0;
+
+			// perbandingan
+
+			console.log('xy' + x + " " + y);
+
+			generate();
+			while(kembar == true && limiter < 1000){
+				generate();
+				limiter++;
+			}
+
+			function generate(){
+				temp = getRandomInt(1,9);
+				
+				// row
+				// for(ctr_y = y; ctr_y >= 0; ctr_y--){
+				// 	if(arr[ctr_y][x] == temp){
+				// 		console.log(temp + " = " + arr[ctr_y][x]);
+				// 		kembar = true;
+				// 		break;
+				// 	}
+				// }
+
+				// col
+				for(ctr_x = x; ctr_x > 0; ctr_x--){
+					if(arr[y][ctr_x] == temp){
+						console.log(temp + " = " + arr[y][ctr_x]);
+						kembar = true;
+						break;
+					}							
+				}
+
+				console.log('percobaan ke ' + limiter);
+			}
+
+
+			if(limiter == 1000){
+				arr[y][x] = "X";
+			}else{
+				arr[y][x] = temp;
+			}
+
+		}
+	}
+
+	console.log(arr);
+}
+
+
+
+function setNumber(target){
+	var array_buffer = [];
+	var random_number = getRandomInt(1,9);
+
+	// if(array_buffer.indexOf(random_number) != -1){
+	// 	array_buffer.push(random_number);
+	// }
+
+	// print value to ..
+	target.find("input").val(random_number);
+}
+
+
+
+ </script>
+
+ </body>

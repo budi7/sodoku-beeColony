@@ -1,0 +1,25 @@
+ .borderless{
+ 	border: none !important;
+ }
+ table tr td {
+ 	padding: 0px !important; 
+ }
+ table tr td input{
+ 	width: 25px;
+ 	height: 25px;
+ 	border: none !important;
+ 	text-align: center;
+ 	font-size: 1rem;
+ }
+ .border-top{
+ 	border-top: 2px solid black !important;
+ }
+ .border-bottom{
+ 	border-bottom: 2px solid black !important;
+ } 
+ .border-right{
+ 	border-right: 2px solid black !important;
+ } 	
+ .border-left{
+ 	border-left: 2px solid black !important;
+ } 
