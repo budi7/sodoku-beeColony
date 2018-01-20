@@ -2,7 +2,8 @@
 var iterasi, bees_onl, bees_emp;
 
 
-// Interface : Event Handlers
+/* INTERFACE */
+// Event Handlers
 $( document ).ready(function() {
 	// clear prev data
 	clearData("foodSource");
@@ -30,8 +31,7 @@ $( document ).ready(function() {
 	});
 });
 
-// Modules
-// interface
+/* INTERFACE  HANDLER */
 var processInput = function(){
 	/* step 1 */
 	// 1.1 get soal
@@ -45,7 +45,7 @@ var processInput = function(){
 	// step 2
 }
 
-// bee colony core
+/* BEE COLONY CORE */
 var getSoal = function(callback){
 	var array = [];
 
@@ -79,13 +79,13 @@ var generateFoodSource = function(callback){
 	if(callback) { callback(); }
 }
 
-// helper core
+/* HELPERS */
 function getRandomInt(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
 
-// io helper
+/* IO */
 function saveData(key, data){
 	window.localStorage.setItem(key, JSON.stringify(data));
 }
