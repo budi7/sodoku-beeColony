@@ -59,8 +59,9 @@ var getSoal = function(callback){
 	if(callback) { callback(array); }
 }
 var generateFoodSource = function(callback){
-	// emp bee 1
+	// init
 	var foodSource = [];
+	
 	// on emp bee count
 	for (var j = 0; j < bees_emp ; j++) {
 		// define array 1 dimensi
