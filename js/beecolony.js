@@ -301,9 +301,9 @@ var getSoal = function(callback){
 	array[240] =  tabel.find("#c241").find('input').val() ? parseInt(tabel.find("#c241").find('input').val()) : null;
 	array[241] =  tabel.find("#c242").find('input').val() ? parseInt(tabel.find("#c242").find('input').val()) : null;
 	array[242] =  tabel.find("#c243").find('input').val() ? parseInt(tabel.find("#c243").find('input').val()) : null;
+	
+	//sudoku E
 	array[243] =  tabel.find("#c244").find('input').val() ? parseInt(tabel.find("#c244").find('input').val()) : null;
-
-	// sudoku E
 	array[244] =  tabel.find("#c245").find('input').val() ? parseInt(tabel.find("#c245").find('input').val()) : null;
 	array[245] =  tabel.find("#c246").find('input').val() ? parseInt(tabel.find("#c246").find('input').val()) : null;
 	array[246] =  tabel.find("#c247").find('input').val() ? parseInt(tabel.find("#c247").find('input').val()) : null;
