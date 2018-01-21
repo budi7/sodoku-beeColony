@@ -38,16 +38,15 @@ var processInput = function(){
 	getSoal(function(array_soal){
 		// 1.2 generate foodsource
 		generateFoodSource(array_soal, function(){
-			//console.log(getData('foodSource'));
-			debug.showModeledData(getData('foodSource')[0]);
-			console.log(getData('foodSource')[0]);
+			// 1.3 check missing number
+			// array foodsource telah disimpan (method generateFoodSource) dalam local storage dengan key index : foodsource
+			// untuk proses berikutnya yg menggunakan data foodsource dapat memanggil data denganmenggunakan method getData('foodSource')
+			checkMissingNumber(getData('foodSource'));
 		});
 	});
 
 	// step 2
 }
-
-/* BEE COLONY CORE */
 var getSoal = function(callback){
 	var array = [];
 
@@ -440,6 +439,8 @@ var getSoal = function(callback){
 	// modul return
 	if(callback) { callback(array); }
 }
+
+/* BEE COLONY CORE */
 var generateFoodSource = function(array_soal, callback){
 	// init
 	var foodSource = [];
@@ -456,6 +457,47 @@ var generateFoodSource = function(array_soal, callback){
 
 	// save data to local storage
 	saveData('foodSource', foodSource);
+
+	// modul return
+	if(callback) { callback(); }
+}
+var checkMissingNumber = function(array_foodSource, callback){
+	// rules
+	var rules = [1,2,3,4,5,6,7,8,9];
+	var error_ctr = 0;
+
+	// for loop : tiap array foodsource
+	Object.keys(array_foodSource).forEach(function(key){
+		console.log('ini array foodsource ke-' + (parseInt(key) + 1 ));
+		debug.showModeledData(array_foodSource[key]);
+
+		// for loop : tiap data dalam array ke - "key"
+		Object.keys(array_foodSource[key]).forEach(function(key2){
+			// unquote utk lihat what's here
+			// console.log(array_foodSource[key][key2]);
+
+			// your logic (logika cek baris/kolom)
+
+
+			// apakah data ada dalam array
+			// docs : https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/indexOf
+			if(rules.indexOf(array_foodSource[key][key2])){
+				// ya
+			}else{
+				// tidak
+			}
+			// or use : statement ? true : false
+
+
+		});
+	});
+
+	// kesimpulan
+	var foodSourceScore = ""; // hasil score nya gimana (misal: 9 - error_ctr)
+
+
+	// save data to local storage
+	saveData('foodSourceScore', foodSourceScore);
 
 	// modul return
 	if(callback) { callback(); }
