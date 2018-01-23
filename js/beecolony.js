@@ -464,6 +464,7 @@ var generateFoodSource = function(array_soal, callback){
 var checkMissingNumber = function(array_foodSource, callback){
 	// rules
 	var rules = [1,2,3,4,5,6,7,8,9];
+	var sudokuStartIndeks = 0;
 	var error_ctr = 0;
 
 	// for loop : tiap array foodsource
@@ -477,6 +478,60 @@ var checkMissingNumber = function(array_foodSource, callback){
 			// console.log(array_foodSource[key][key2]);
 
 			// your logic (logika cek baris/kolom)
+			
+			// sudokus, start with 0, 81, 162, 243, 324
+
+			for (var sudokuStartIndeks = 0; sudokuStartIndeks < 325 ; sudokuStartIndeks = sudokuStartIndeks + 81) {
+			// baris indeks starts with sudokuStartIndeks + 9 (0, 9, 18, 27, ... 72)
+				if sudokuStartIndeks < 324{
+					// sudoku A, B, D, E
+					for (var baris = sudokuStartIndeks; baris < sudokuStartIndeks + 73; baris = baris + 9 ){
+						for (var nomor = baris; nomor < baris + 8 ; nomor++) {
+							// cek array
+							if array[nomor] = 0; error_ctr ++;
+
+						}
+					}
+
+					// kolom
+					for (var kolom = sudokuStartIndeks; kolom < sudokuStartIndeks + 9; kolom++) {
+						for (var nomor = kolom; nomor < kolom + 73; nomor = nomor + 9){
+							if array[nomor] = 0; error_ctr ++;
+						}
+					}
+				}
+				else{
+					// sudoku C
+					
+					var barisC1 = {60, 61, 62, 324, 325, 326, 135, 136, 137};
+					var barisC2 = {69, 70, 71, 327, 328, 329, 144, 145, 146};
+					var barisC3 = {78, 79, 80, 330, 331, 332, 153, 154, 155};
+					
+					// 3 baris C4, C5, C6
+					for (var baris = 333; baris < 352; baris = baris + 9){
+						for (var nomor = baris; nomor < baris + 9; nomor++){
+							if array[nomor]=0; error_ctr ++;
+						}
+					}
+
+					var barisC7 = {168, 169, 170, 360, 361, 362, 243, 244, 245};
+					var barisC8 = {177, 178, 179, 363, 364, 365, 252, 253, 254};
+					var barisC9 = {186, 187, 188, 366, 367, 368, 261, 262, 263};
+
+					var kolomC1 = {60, 69, 78, 333, 342, 351, 168, 177, 186};
+					var kolomC2 = {61, 70, 71, 334, 343, 352, 169, 178, 187};
+					var kolomC3 = {62, 71, 80, 335, 344, 353, 170, 179, 188};
+					var kolomC4 = {324, 327, 330, 336, 345, 354, 360, 363, 366};
+					var kolomC5 = {325, 328, 331, 337, 346, 355, 361, 364, 367};
+					var kolomC6 = {326, 329, 332, 338, 347, 356, 362, 365, 368};
+					var kolomC7 = {135, 144, 153, 339, 348, 357, 243, 252, 261};
+					var kolomC8 = {136, 145, 154, 340, 349, 358, 244, 253, 262};
+					var kolomC9 = {137, 146, 155, 341, 350, 359, 245, 254, 263};
+
+				}
+
+			}
+
 
 
 			// apakah data ada dalam array
