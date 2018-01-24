@@ -464,13 +464,15 @@ var generateFoodSource = function(array_soal, callback){
 var checkMissingNumber = function(array_foodSource, callback){
 	// rules
 	var sudokuStartIndeks = 0;
-	var error_ctr = 0;
+	var total_error;
 	var data_debug = {};
 
 	// for loop : tiap array foodsource
 	Object.keys(array_foodSource).forEach(function(key){
 		console.log('ini array foodsource ke-' + (parseInt(key) + 1 ));
 		debug.showModeledData(array_foodSource[key]);
+
+		total_error = 0;
 
 
 		for (var sudokuStartIndeks = 0; sudokuStartIndeks < 325 ; sudokuStartIndeks = sudokuStartIndeks + 81) {
@@ -491,7 +493,9 @@ var checkMissingNumber = function(array_foodSource, callback){
 						console.log(flag);
 
 						var err_ctr = countFlag(flag);
-						console.log("jumlah error baris ke-" + baris + ' = ' + err_ctr);
+						console.log("jumlah error baris start indeks " + baris + ' = ' + err_ctr);
+						total_error = total_error + err_ctr;
+						console.log("total error = " + total_error);
 					}
 
 					// kolom
@@ -505,11 +509,13 @@ var checkMissingNumber = function(array_foodSource, callback){
 						console.log(flag);
 
 						var err_ctr = countFlag(flag);
-						console.log("jumlah error kolom ke-" + kolom + ' = ' + err_ctr);
+						console.log("jumlah error kolom start indeks " + kolom + ' = ' + err_ctr);
+						total_error = total_error + err_ctr;
+						console.log("total error = " + total_error);
 					}
 					
 				}else{
-					// sudoku C
+					// sudoku C, new indeks
 					
 					var arraySudokuC = [];
 
@@ -617,6 +623,8 @@ var checkMissingNumber = function(array_foodSource, callback){
 
 						var err_ctr = countFlag(flag);
 						console.log("jumlah error baris ke-" + baris + ' = ' + err_ctr);
+						total_error = total_error + err_ctr;
+						console.log("total error = " + total_error);
 					}
 
 					for (var kolom = 0; kolom < 9; kolom++) {
@@ -629,12 +637,14 @@ var checkMissingNumber = function(array_foodSource, callback){
 
 						var err_ctr = countFlag(flag);
 						console.log("jumlah error kolom ke-" + kolom + ' = ' + err_ctr);
+						total_error = total_error + err_ctr;
+						console.log("total error = " + total_error);
 					}
-
-
 				}
 
 			}
+
+		console.log('Total error foodsource ke-' + (parseInt(key) +1 ) + ' = ' + total_error);
 
 		});
 
@@ -677,6 +687,21 @@ function getData(key){
 function clearData(key){
 	window.localStorage.removeItem(key);
 }
+
+// modul coba
+function hitungFitness(key){
+	window.localStorage.removeItem(key);
+}
+
+function cekSubgrid(indeksCell){
+	var checker;
+	var startSubgrid = indeksCell - indeksCell % 9;
+	var endSubgrid;
+	for (var checker = 0; i < Things.length; i++) {
+		Things[i]
+	}
+}
+
 
 
 /* DEBUG */
