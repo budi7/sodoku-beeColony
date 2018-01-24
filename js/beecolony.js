@@ -463,96 +463,198 @@ var generateFoodSource = function(array_soal, callback){
 }
 var checkMissingNumber = function(array_foodSource, callback){
 	// rules
-	var rules = [1,2,3,4,5,6,7,8,9];
 	var sudokuStartIndeks = 0;
 	var error_ctr = 0;
+	var data_debug = {};
 
 	// for loop : tiap array foodsource
 	Object.keys(array_foodSource).forEach(function(key){
 		console.log('ini array foodsource ke-' + (parseInt(key) + 1 ));
 		debug.showModeledData(array_foodSource[key]);
 
-		// for loop : tiap data dalam array ke - "key"
-		Object.keys(array_foodSource[key]).forEach(function(key2){
-			// unquote utk lihat what's here
-			// console.log(array_foodSource[key][key2]);
 
-			// your logic (logika cek baris/kolom)
-			
-			// sudokus, start with 0, 81, 162, 243, 324
+		for (var sudokuStartIndeks = 0; sudokuStartIndeks < 325 ; sudokuStartIndeks = sudokuStartIndeks + 81) {
+			data_debug[key] = {};
 
-			for (var sudokuStartIndeks = 0; sudokuStartIndeks < 325 ; sudokuStartIndeks = sudokuStartIndeks + 81) {
 			// baris indeks starts with sudokuStartIndeks + 9 (0, 9, 18, 27, ... 72)
-				if sudokuStartIndeks < 324{
+			if (sudokuStartIndeks < 324){
 					// sudoku A, B, D, E
 					for (var baris = sudokuStartIndeks; baris < sudokuStartIndeks + 73; baris = baris + 9 ){
-						for (var nomor = baris; nomor < baris + 8 ; nomor++) {
-							// cek array
-							if array[nomor] = 0; error_ctr ++;
 
+						var flag = {1: false, 2: false, 3: false, 4: false, 5: false, 6: false, 7: false, 8: false, 9: false};
+
+						for (var nomor = baris; nomor < baris + 9 ; nomor++) {
+							// flag data
+							flag[array_foodSource[key][nomor]] = true;
 						}
+
+						console.log(flag);
+
+						var err_ctr = countFlag(flag);
+						console.log("jumlah error baris ke-" + baris + ' = ' + err_ctr);
 					}
 
 					// kolom
+					
 					for (var kolom = sudokuStartIndeks; kolom < sudokuStartIndeks + 9; kolom++) {
+						var flag = {1: false, 2: false, 3: false, 4: false, 5: false, 6: false, 7: false, 8: false, 9: false};
 						for (var nomor = kolom; nomor < kolom + 73; nomor = nomor + 9){
-							if array[nomor] = 0; error_ctr ++;
+							flag[array_foodSource[key][nomor]] = true;
 						}
+
+						console.log(flag);
+
+						var err_ctr = countFlag(flag);
+						console.log("jumlah error kolom ke-" + kolom + ' = ' + err_ctr);
 					}
-				}
-				else{
+					
+				}else{
 					// sudoku C
 					
-					var barisC1 = {60, 61, 62, 324, 325, 326, 135, 136, 137};
-					var barisC2 = {69, 70, 71, 327, 328, 329, 144, 145, 146};
-					var barisC3 = {78, 79, 80, 330, 331, 332, 153, 154, 155};
+					var arraySudokuC = [];
+
+					arraySudokuC[0] = array_foodSource[key][60];
+					arraySudokuC[1] = array_foodSource[key][61];
+					arraySudokuC[2] = array_foodSource[key][62];
+					arraySudokuC[3] = array_foodSource[key][324];
+					arraySudokuC[4] = array_foodSource[key][325];
+					arraySudokuC[5] = array_foodSource[key][326];
+					arraySudokuC[6] = array_foodSource[key][135];
+					arraySudokuC[7] = array_foodSource[key][136];
+					arraySudokuC[8] = array_foodSource[key][137];
+
+					arraySudokuC[9] = array_foodSource[key][69];
+					arraySudokuC[10] = array_foodSource[key][70];
+					arraySudokuC[11] = array_foodSource[key][71];
+					arraySudokuC[12] = array_foodSource[key][327];
+					arraySudokuC[13] = array_foodSource[key][328];
+					arraySudokuC[14] = array_foodSource[key][329];
+					arraySudokuC[15] = array_foodSource[key][144];
+					arraySudokuC[16] = array_foodSource[key][145];
+					arraySudokuC[17] = array_foodSource[key][146];
+
+					arraySudokuC[18] = array_foodSource[key][78];
+					arraySudokuC[19] = array_foodSource[key][79];
+					arraySudokuC[20] = array_foodSource[key][80];
+					arraySudokuC[21] = array_foodSource[key][330];
+					arraySudokuC[22] = array_foodSource[key][331];
+					arraySudokuC[23] = array_foodSource[key][332];
+					arraySudokuC[24] = array_foodSource[key][153];
+					arraySudokuC[25] = array_foodSource[key][154];
+					arraySudokuC[26] = array_foodSource[key][155];
+
+					arraySudokuC[27] = array_foodSource[key][333];
+					arraySudokuC[28] = array_foodSource[key][334];
+					arraySudokuC[29] = array_foodSource[key][335];
+					arraySudokuC[30] = array_foodSource[key][336];
+					arraySudokuC[31] = array_foodSource[key][337];
+					arraySudokuC[32] = array_foodSource[key][338];
+					arraySudokuC[33] = array_foodSource[key][339];
+					arraySudokuC[34] = array_foodSource[key][340];
+					arraySudokuC[35] = array_foodSource[key][341];
 					
-					// 3 baris C4, C5, C6
-					for (var baris = 333; baris < 352; baris = baris + 9){
-						for (var nomor = baris; nomor < baris + 9; nomor++){
-							if array[nomor]=0; error_ctr ++;
+					arraySudokuC[36] = array_foodSource[key][342];
+					arraySudokuC[37] = array_foodSource[key][343];
+					arraySudokuC[38] = array_foodSource[key][344];
+					arraySudokuC[39] = array_foodSource[key][345];
+					arraySudokuC[40] = array_foodSource[key][346];
+					arraySudokuC[41] = array_foodSource[key][347];
+					arraySudokuC[42] = array_foodSource[key][348];
+					arraySudokuC[43] = array_foodSource[key][349];
+					arraySudokuC[44] = array_foodSource[key][350];
+					
+					arraySudokuC[45] = array_foodSource[key][351];
+					arraySudokuC[46] = array_foodSource[key][352];
+					arraySudokuC[47] = array_foodSource[key][353];
+					arraySudokuC[48] = array_foodSource[key][354];
+					arraySudokuC[49] = array_foodSource[key][355];
+					arraySudokuC[50] = array_foodSource[key][356];
+					arraySudokuC[51] = array_foodSource[key][357];
+					arraySudokuC[52] = array_foodSource[key][358];
+					arraySudokuC[53] = array_foodSource[key][359];
+					
+					arraySudokuC[54] = array_foodSource[key][168];
+					arraySudokuC[55] = array_foodSource[key][169];
+					arraySudokuC[56] = array_foodSource[key][170];
+					arraySudokuC[57] = array_foodSource[key][360];
+					arraySudokuC[58] = array_foodSource[key][361];
+					arraySudokuC[59] = array_foodSource[key][362];
+					arraySudokuC[60] = array_foodSource[key][243];
+					arraySudokuC[61] = array_foodSource[key][244];
+					arraySudokuC[62] = array_foodSource[key][245];
+					
+					arraySudokuC[63] = array_foodSource[key][177];
+					arraySudokuC[64] = array_foodSource[key][178];
+					arraySudokuC[65] = array_foodSource[key][179];
+					arraySudokuC[66] = array_foodSource[key][363];
+					arraySudokuC[67] = array_foodSource[key][364];
+					arraySudokuC[68] = array_foodSource[key][365];
+					arraySudokuC[69] = array_foodSource[key][252];
+					arraySudokuC[70] = array_foodSource[key][253];
+					arraySudokuC[71] = array_foodSource[key][254];
+					
+					arraySudokuC[72] = array_foodSource[key][186];
+					arraySudokuC[73] = array_foodSource[key][187];
+					arraySudokuC[74] = array_foodSource[key][188];
+					arraySudokuC[75] = array_foodSource[key][366];
+					arraySudokuC[76] = array_foodSource[key][367];
+					arraySudokuC[77] = array_foodSource[key][368];
+					arraySudokuC[78] = array_foodSource[key][261];
+					arraySudokuC[79] = array_foodSource[key][262];
+					arraySudokuC[80] = array_foodSource[key][263];
+
+
+					for (var baris = 0; baris < 73; baris = baris + 9 ){
+
+						var flag = {1: false, 2: false, 3: false, 4: false, 5: false, 6: false, 7: false, 8: false, 9: false};
+
+						for (var nomor = baris; nomor < baris + 9 ; nomor++) {
+							// flag data
+							flag[arraySudokuC[nomor]] = true;
 						}
+
+						console.log(flag);
+
+						var err_ctr = countFlag(flag);
+						console.log("jumlah error baris ke-" + baris + ' = ' + err_ctr);
 					}
 
-					var barisC7 = {168, 169, 170, 360, 361, 362, 243, 244, 245};
-					var barisC8 = {177, 178, 179, 363, 364, 365, 252, 253, 254};
-					var barisC9 = {186, 187, 188, 366, 367, 368, 261, 262, 263};
+					for (var kolom = 0; kolom < 9; kolom++) {
+						var flag = {1: false, 2: false, 3: false, 4: false, 5: false, 6: false, 7: false, 8: false, 9: false};
+						for (var nomor = kolom; nomor < kolom + 73; nomor = nomor + 9){
+							flag[arraySudokuC[nomor]] = true;
+						}
 
-					var kolomC1 = {60, 69, 78, 333, 342, 351, 168, 177, 186};
-					var kolomC2 = {61, 70, 71, 334, 343, 352, 169, 178, 187};
-					var kolomC3 = {62, 71, 80, 335, 344, 353, 170, 179, 188};
-					var kolomC4 = {324, 327, 330, 336, 345, 354, 360, 363, 366};
-					var kolomC5 = {325, 328, 331, 337, 346, 355, 361, 364, 367};
-					var kolomC6 = {326, 329, 332, 338, 347, 356, 362, 365, 368};
-					var kolomC7 = {135, 144, 153, 339, 348, 357, 243, 252, 261};
-					var kolomC8 = {136, 145, 154, 340, 349, 358, 244, 253, 262};
-					var kolomC9 = {137, 146, 155, 341, 350, 359, 245, 254, 263};
+						console.log(flag);
+
+						var err_ctr = countFlag(flag);
+						console.log("jumlah error kolom ke-" + kolom + ' = ' + err_ctr);
+					}
+
 
 				}
 
 			}
 
-
-
-			// apakah data ada dalam array
-			// docs : https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/indexOf
-			if(rules.indexOf(array_foodSource[key][key2])){
-				// ya
-			}else{
-				// tidak
-			}
-			// or use : statement ? true : false
-
-
 		});
-	});
 
 	// kesimpulan
 	var foodSourceScore = ""; // hasil score nya gimana (misal: 9 - error_ctr)
 
 
-	// save data to local storage
-	saveData('foodSourceScore', foodSourceScore);
+	// function count flag 
+	function countFlag(flag_array){
+		var error_ctr = 0;
+
+		for (var i = 1; i < 10; i++) {
+			if(!flag_array[i]){
+				error_ctr++;
+			}
+		}
+
+		return error_ctr;
+	}	
+
 
 	// modul return
 	if(callback) { callback(); }
