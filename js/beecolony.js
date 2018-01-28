@@ -1,5 +1,5 @@
 // var declaration
-var iterasi, bees_onl, bees_emp;
+var iterasi, onlooker_bee, employed_bee;
 
 
 /* INTERFACE */
@@ -18,11 +18,11 @@ $( document ).ready(function() {
 		var form = $(e.target); // variabel pointer
 
 		iterasi =  parseInt(form.find("input[name='iterasi']").val());
-		bees_onl = parseInt(form.find("input[name='bees_onl']").val());
-		bees_emp = parseInt(form.find("input[name='bees_emp']").val());
+		onlooker_bee = parseInt(form.find("input[name='onlooker_bee']").val());
+		employed_bee = parseInt(form.find("input[name='employed_bee']").val());
 
 		// validasi
-		if(!iterasi || !bees_onl || !bees_onl){ 
+		if(!iterasi || !onlooker_bee || !employed_bee){ 
 			alert("Input tidak lengkap!"); 
 			return false;  
 		}
@@ -36,17 +36,46 @@ var processInput = function(){
 	/* step 1 */
 	// 1.1 get soal
 	getSoal(function(array_soal){
+		// save array soal
+		saveData('soal', array_soal);
+
 		// 1.2 generate foodsource
-		generateFoodSource(array_soal, function(){
+		generateFoodSource(array_soal, employed_bee, function(){
 			// 1.3 check missing number
 			// array foodsource telah disimpan (method generateFoodSource) dalam local storage dengan key index : foodsource
 			// untuk proses berikutnya yg menggunakan data foodsource dapat memanggil data denganmenggunakan method getData('foodSource')
-			checkMissingNumber(getData('foodSource'));
+			
+			/*
+			var nilai = 9;
+			var fungsi = function(with_param){
+				return with_param;
+			}
+
+			console.log(nilai); // 9
+			console.log(fungsi('hai')) //hai 
+			*/
+
+			checkMissingNumber(getData('foodSource'), function(error_foodSource){
+				hitungFitness(error_foodSource, function(fitness){
+					totalFitness(fitness, function(total_fitness){
+						waggleDance(fitness, total_fitness, function(prob_Onlooker){
+							sumOnlooker(prob_Onlooker, function(jumlah_Onlooker){
+								console.log('1');
+								//neighborhoodSearch(jumlah_Onlooker)
+							});
+
+						});
+					console.log('fitnessnya = ' + fitness + ', total fitnessnya = ' + total_fitness);
+					});
+					
+				});
+			});
 		});
 	});
 
 	// step 2
 }
+
 var getSoal = function(callback){
 	var array = [];
 
@@ -436,17 +465,26 @@ var getSoal = function(callback){
 	// save data to local storage
 	saveData('soal', array);
 
+	var array_null = [];
+	Object.keys(array).forEach(function(key){
+		if(!array[key]){
+			array_null.push(key);
+		}
+	});
+	console.log('array null ' + array_null);
+	saveData('kosong', array_null);
+
 	// modul return
-	if(callback) { callback(array); }
+	if(callback) { callback(array, array_null); }
 }
 
 /* BEE COLONY CORE */
-var generateFoodSource = function(array_soal, callback){
+var generateFoodSource = function(array_soal, jumlahlebah, callback){
 	// init
 	var foodSource = [];
 	
 	// on emp bee count
-	for (var j = 0; j < bees_emp ; j++) {
+	for (var j = 0; j < jumlahlebah ; j++) {
 		// define array 1 dimensi
 		var arr = [];
 		for (var i = 0; i < 369; i++) {
@@ -461,10 +499,12 @@ var generateFoodSource = function(array_soal, callback){
 	// modul return
 	if(callback) { callback(); }
 }
+
 var checkMissingNumber = function(array_foodSource, callback){
 	// rules
 	var sudokuStartIndeks = 0;
 	var total_error;
+	var error_foodSource = [];
 	var data_debug = {};
 
 	// for loop : tiap array foodsource
@@ -473,7 +513,6 @@ var checkMissingNumber = function(array_foodSource, callback){
 		debug.showModeledData(array_foodSource[key]);
 
 		total_error = 0;
-
 
 		for (var sudokuStartIndeks = 0; sudokuStartIndeks < 325 ; sudokuStartIndeks = sudokuStartIndeks + 81) {
 			data_debug[key] = {};
@@ -644,7 +683,9 @@ var checkMissingNumber = function(array_foodSource, callback){
 
 			}
 
-		console.log('Total error foodsource ke-' + (parseInt(key) +1 ) + ' = ' + total_error);
+			console.log('Total error foodsource ke-' + (parseInt(key) +1 ) + ' = ' + total_error);
+			error_foodSource.push(total_error);
+
 
 		});
 
@@ -667,15 +708,530 @@ var checkMissingNumber = function(array_foodSource, callback){
 
 
 	// modul return
-	if(callback) { callback(); }
+	if(callback) { callback(error_foodSource); }
 }
 
+// modul coba
+
+function hitungFitness(error_foodSource, callback){
+	var fitness = [];
+	Object.keys(error_foodSource).forEach(function(key){
+		var fit = 1 / (1 + error_foodSource[key]);
+		fitness.push(fit);
+		console.log('fitness food source ke-' + (parseInt(key) + 1) + ' = ' + fitness[key]);
+	});
+	
+		// modul return
+		if(callback) { callback(fitness); }
+	}
+
+	function totalFitness(fitness, callback){
+		var total_fitness = 0;
+		Object.keys(fitness).forEach(function(key){
+			total_fitness = total_fitness + fitness[key];
+		});
+		console.log('total fitness = ' + total_fitness);
+
+		if(callback) { callback(total_fitness);}
+	}	
+
+	function waggleDance(fitness, total_fitness, callback){
+		var prob_Onlooker = [];
+		Object.keys(fitness).forEach(function(key){
+			var prob = fitness[key] / total_fitness;
+			prob_Onlooker.push(prob);
+			console.log('Prob food source ke-' + (parseInt(key) + 1) + ' = ' + prob_Onlooker[key]);
+		});
+		if(callback) { callback(prob_Onlooker);}
+	};
+
+	function sumOnlooker(prob_Onlooker, callback){
+		var jumlah_Onlooker = [];
+		Object.keys(prob_Onlooker).forEach(function(key){
+			var jumlah = Math.round(prob_Onlooker[key] * onlooker_bee);
+			jumlah_Onlooker.push(jumlah);
+			console.log('Jumlah onlooker food source ke-' + (parseInt(key) + 1) + ' = ' + jumlah_Onlooker[key]);
+		});
+
+		if(callback) { callback(jumlah_Onlooker);}
+	}
+
+	function neighborhoodSearch(jumlah_Onlooker, callback){
+		var j;
+		var temp = [];
+		var neighbor;
+		var array_foodSource = getData('foodSource');
+		var array_soal = getData('soal');
+		console.log(array_foodSource);
+		console.log(array_soal);
+		var teta = Math.random() < 0.5 ? -1 : 1;
+		Object.keys(jumlah_Onlooker).forEach(function(key){
+			if (jumlah_Onlooker[key] > 0){
+				temp = array_foodSource[key];
+				for (var i = jumlah_Onlooker[key]; i > 0; i--) {
+					var k;
+						if (key == (employed_bee - 1)){
+							k = getRandomInt(0, (employed_bee-2));
+						}else if(key < (employed_bee-1) && key > 0){
+							k = randomExcluded(0, (employed_bee-1), key);
+						}else{
+							k = getRandomInt(1, (employed_bee-1));
+						}
+						console.log('nilai k untuk key ' + key + ' = ' + k);
+					
+
+					neighbor = Math.ceil(array_foodSource[key][j] + ((teta) * Math.abs(array_foodSource[key][j] - array_foodSource[k][j])));
+					if (neighbor < 1 && neighbor > 9){
+						neighbor = (neighbor % 9) + 1;
+					}
+					temp[j] = neighbor;
+					console.log('neighbor = ' + temp[j]);
+
+			// check new fitness
+/*			checkMissingNumber(array_foodSource[key]);
+			var errorlama = error_foodSource;
+			checkMissingNumber(temp);
+			var errorbaru = error_foodSource;
+
+			console.log('errorlama = ' +errorlama);
+			console.log('errorbaru = ' + errorbaru);
+
+			if (errorbaru >= errorlama){
+				return true;
+				//cekSubgrid(temp, j);
+			}*/
+			}
+
+
+		}else{
+				console.log('gagal');
+			}
+	})
+	}
+
+/*	function cekSubgrid(array_foodSource, indeksCell){
+		var checker;
+		var startSubgrid = indeksCell - indeksCell % 9;
+		var endSubgrid = indeksCell + (8 - indeksCell % 9);
+		var indeksSama = 0;
+
+		var arraySubgrid = [];
+	arraySubgrid[0] = array_foodSource[key][0];
+	arraySubgrid[1] = array_foodSource[key][1];
+	arraySubgrid[2] = array_foodSource[key][2];
+	arraySubgrid[3] = array_foodSource[key][9];
+	arraySubgrid[4] = array_foodSource[key][10];
+	arraySubgrid[5] = array_foodSource[key][11];
+	arraySubgrid[6] = array_foodSource[key][18];
+	arraySubgrid[7] = array_foodSource[key][19];
+	arraySubgrid[8] = array_foodSource[key][20];
+	arraySubgrid[9] = array_foodSource[key][3]; 
+	arraySubgrid[10] = array_foodSource[key][4]; 
+	arraySubgrid[11] = array_foodSource[key][5]; 
+	arraySubgrid[12] = array_foodSource[key][12]; 
+	arraySubgrid[13] = array_foodSource[key][13]; 
+	arraySubgrid[14] = array_foodSource[key][14]; 
+	arraySubgrid[15] = array_foodSource[key][21]; 
+	arraySubgrid[16] = array_foodSource[key][22]; 
+	arraySubgrid[17] = array_foodSource[key][23]; 
+	arraySubgrid[18] = array_foodSource[key][6]; 
+	arraySubgrid[19] = array_foodSource[key][7]; 
+	arraySubgrid[20] = array_foodSource[key][8]; 
+	arraySubgrid[21] = array_foodSource[key][15]; 
+	arraySubgrid[22] = array_foodSource[key][16]; 
+	arraySubgrid[23] = array_foodSource[key][17]; 
+	arraySubgrid[24] = array_foodSource[key][24]; 
+	arraySubgrid[25] = array_foodSource[key][25]; 
+	arraySubgrid[26] = array_foodSource[key][26]; 
+	arraySubgrid[27] = array_foodSource[key][27]; 
+	arraySubgrid[28] = array_foodSource[key][28]; 
+	arraySubgrid[29] = array_foodSource[key][29]; 
+	arraySubgrid[30] = array_foodSource[key][36]; 
+	arraySubgrid[31] = array_foodSource[key][37]; 
+	arraySubgrid[32] = array_foodSource[key][38]; 
+	arraySubgrid[33] = array_foodSource[key][45]; 
+	arraySubgrid[34] = array_foodSource[key][46]; 
+	arraySubgrid[35] = array_foodSource[key][47]; 
+	arraySubgrid[36] = array_foodSource[key][30]; 
+	arraySubgrid[37] = array_foodSource[key][31]; 
+	arraySubgrid[38] = array_foodSource[key][32]; 
+	arraySubgrid[39] = array_foodSource[key][39]; 
+	arraySubgrid[40] = array_foodSource[key][40]; 
+	arraySubgrid[41] = array_foodSource[key][41]; 
+	arraySubgrid[42] = array_foodSource[key][48]; 
+	arraySubgrid[43] = array_foodSource[key][49]; 
+	arraySubgrid[44] = array_foodSource[key][50]; 
+	arraySubgrid[45] = array_foodSource[key][33]; 
+	arraySubgrid[46] = array_foodSource[key][34]; 
+	arraySubgrid[47] = array_foodSource[key][35]; 
+	arraySubgrid[48] = array_foodSource[key][42]; 
+	arraySubgrid[49] = array_foodSource[key][43]; 
+	arraySubgrid[50] = array_foodSource[key][44]; 
+	arraySubgrid[51] = array_foodSource[key][51]; 
+	arraySubgrid[52] = array_foodSource[key][52]; 
+	arraySubgrid[53] = array_foodSource[key][53]; 
+	arraySubgrid[54] = array_foodSource[key][54]; 
+	arraySubgrid[55] = array_foodSource[key][55]; 
+	arraySubgrid[56] = array_foodSource[key][56]; 
+	arraySubgrid[57] = array_foodSource[key][63]; 
+	arraySubgrid[58] = array_foodSource[key][64]; 
+	arraySubgrid[59] = array_foodSource[key][65]; 
+	arraySubgrid[60] = array_foodSource[key][72]; 
+	arraySubgrid[61] = array_foodSource[key][73]; 
+	arraySubgrid[62] = array_foodSource[key][74]; 
+	arraySubgrid[63] = array_foodSource[key][57]; 
+	arraySubgrid[64] = array_foodSource[key][58]; 
+	arraySubgrid[65] = array_foodSource[key][59]; 
+	arraySubgrid[66] = array_foodSource[key][66]; 
+	arraySubgrid[67] = array_foodSource[key][67]; 
+	arraySubgrid[68] = array_foodSource[key][68]; 
+	arraySubgrid[69] = array_foodSource[key][75]; 
+	arraySubgrid[70] = array_foodSource[key][76]; 
+	arraySubgrid[71] = array_foodSource[key][77]; 
+	arraySubgrid[72] = array_foodSource[key][60]; 
+	arraySubgrid[73] = array_foodSource[key][61]; 
+	arraySubgrid[74] = array_foodSource[key][62]; 
+	arraySubgrid[75] = array_foodSource[key][69]; 
+	arraySubgrid[76] = array_foodSource[key][70]; 
+	arraySubgrid[77] = array_foodSource[key][71]; 
+	arraySubgrid[78] = array_foodSource[key][78]; 
+	arraySubgrid[79] = array_foodSource[key][79]; 
+	arraySubgrid[80] = array_foodSource[key][80]; 
+	
+	// sudoku B
+	arraySubgrid[81] = array_foodSource[key][81]; 
+	arraySubgrid[82] = array_foodSource[key][82]; 
+	arraySubgrid[83] = array_foodSource[key][83]; 
+	arraySubgrid[84] = array_foodSource[key][90]; 
+	arraySubgrid[85] = array_foodSource[key][91]; 
+	arraySubgrid[86] = array_foodSource[key][92]; 
+	arraySubgrid[87] = array_foodSource[key][99]; 
+	arraySubgrid[88] = array_foodSource[key][100]; 
+	arraySubgrid[89] = array_foodSource[key][101]; 
+	arraySubgrid[90] = array_foodSource[key][84]; 
+	arraySubgrid[91] = array_foodSource[key][85]; 
+	arraySubgrid[92] = array_foodSource[key][86]; 
+	arraySubgrid[93] = array_foodSource[key][93]; 
+	arraySubgrid[94] = array_foodSource[key][94]; 
+	arraySubgrid[95] = array_foodSource[key][95]; 
+	arraySubgrid[96] = array_foodSource[key][102]; 
+	arraySubgrid[97] = array_foodSource[key][103]; 
+	arraySubgrid[98] = array_foodSource[key][105]; 
+	arraySubgrid[99] = array_foodSource[key][87];
+	arraySubgrid[100] = array_foodSource[key][88];
+	arraySubgrid[101] = array_foodSource[key][89];
+	arraySubgrid[102] = array_foodSource[key][96];
+	arraySubgrid[103] = array_foodSource[key][97];
+	arraySubgrid[104] = array_foodSource[key][98];
+	arraySubgrid[105] = array_foodSource[key][105];
+	arraySubgrid[106] = array_foodSource[key][106];
+	arraySubgrid[107] = array_foodSource[key][107];
+	arraySubgrid[108] = array_foodSource[key][108];
+	arraySubgrid[109] = array_foodSource[key][109];
+	arraySubgrid[110] = array_foodSource[key][110];
+	arraySubgrid[111] = array_foodSource[key][117];
+	arraySubgrid[112] = array_foodSource[key][118];
+	arraySubgrid[113] = array_foodSource[key][119];
+	arraySubgrid[114] = array_foodSource[key][126];
+	arraySubgrid[115] = array_foodSource[key][127];
+	arraySubgrid[116] = array_foodSource[key][128];
+	arraySubgrid[117] = array_foodSource[key][111];
+	arraySubgrid[118] = array_foodSource[key][112];
+	arraySubgrid[119] = array_foodSource[key][113];
+	arraySubgrid[120] = array_foodSource[key][120];
+	arraySubgrid[121] = array_foodSource[key][121];
+	arraySubgrid[122] = array_foodSource[key][122];
+	arraySubgrid[123] = array_foodSource[key][129];
+	arraySubgrid[124] = array_foodSource[key][130];
+	arraySubgrid[125] = array_foodSource[key][131];
+	arraySubgrid[126] = array_foodSource[key][114];
+	arraySubgrid[127] = array_foodSource[key][115];
+	arraySubgrid[128] = array_foodSource[key][116];
+	arraySubgrid[129] = array_foodSource[key][123];
+	arraySubgrid[130] = array_foodSource[key][124];
+	arraySubgrid[131] = array_foodSource[key][125];
+	arraySubgrid[132] = array_foodSource[key][132];
+	arraySubgrid[133] = array_foodSource[key][133];
+	arraySubgrid[134] = array_foodSource[key][134];
+	arraySubgrid[135] = array_foodSource[key][135];
+	arraySubgrid[136] = array_foodSource[key][136];
+	arraySubgrid[137] = array_foodSource[key][137];
+	arraySubgrid[138] = array_foodSource[key][144];
+	arraySubgrid[139] = array_foodSource[key][145];
+	arraySubgrid[140] = array_foodSource[key][146];
+	arraySubgrid[141] = array_foodSource[key][153];
+	arraySubgrid[142] = array_foodSource[key][154];
+	arraySubgrid[143] = array_foodSource[key][155];
+	arraySubgrid[144] = array_foodSource[key][138];
+	arraySubgrid[145] = array_foodSource[key][139];
+	arraySubgrid[146] = array_foodSource[key][140];
+	arraySubgrid[147] = array_foodSource[key][147];
+	arraySubgrid[148] = array_foodSource[key][148];
+	arraySubgrid[149] = array_foodSource[key][149];
+	arraySubgrid[150] = array_foodSource[key][156];
+	arraySubgrid[151] = array_foodSource[key][157];
+	arraySubgrid[152] = array_foodSource[key][158];
+	arraySubgrid[153] = array_foodSource[key][141];
+	arraySubgrid[154] = array_foodSource[key][142];
+	arraySubgrid[155] = array_foodSource[key][143];
+	arraySubgrid[156] = array_foodSource[key][150];
+	arraySubgrid[157] = array_foodSource[key][151];
+	arraySubgrid[158] = array_foodSource[key][152];
+	arraySubgrid[159] = array_foodSource[key][159];
+	arraySubgrid[160] = array_foodSource[key][160];
+	arraySubgrid[161] = array_foodSource[key][161];
+
+	// sudoku D
+	arraySubgrid[162] = array_foodSource[key][162];
+	arraySubgrid[163] = array_foodSource[key][163];
+	arraySubgrid[164] = array_foodSource[key][164];
+	arraySubgrid[165] = array_foodSource[key][171];
+	arraySubgrid[166] = array_foodSource[key][172];
+	arraySubgrid[167] = array_foodSource[key][173];
+	arraySubgrid[168] = array_foodSource[key][180];
+	arraySubgrid[169] = array_foodSource[key][181];
+	arraySubgrid[170] = array_foodSource[key][182];
+	arraySubgrid[171] = array_foodSource[key][165];
+	arraySubgrid[172] = array_foodSource[key][166];
+	arraySubgrid[173] = array_foodSource[key][167];
+	arraySubgrid[174] = array_foodSource[key][174];
+	arraySubgrid[175] = array_foodSource[key][175];
+	arraySubgrid[176] = array_foodSource[key][176];
+	arraySubgrid[177] = array_foodSource[key][183];
+	arraySubgrid[178] = array_foodSource[key][184];
+	arraySubgrid[179] = array_foodSource[key][185];
+	arraySubgrid[180] = array_foodSource[key][168];
+	arraySubgrid[181] = array_foodSource[key][169];
+	arraySubgrid[182] = array_foodSource[key][170];
+	arraySubgrid[183] = array_foodSource[key][177];
+	arraySubgrid[184] = array_foodSource[key][178];
+	arraySubgrid[185] = array_foodSource[key][179];
+	arraySubgrid[186] = array_foodSource[key][186];
+	arraySubgrid[187] = array_foodSource[key][187];
+	arraySubgrid[188] = array_foodSource[key][188];
+	arraySubgrid[189] = array_foodSource[key][189];
+	arraySubgrid[190] = array_foodSource[key][190];
+	arraySubgrid[191] = array_foodSource[key][191];
+	arraySubgrid[192] = array_foodSource[key][198];
+	arraySubgrid[193] = array_foodSource[key][199];
+	arraySubgrid[194] = array_foodSource[key][200];
+	arraySubgrid[195] = array_foodSource[key][207];
+	arraySubgrid[196] = array_foodSource[key][208];
+	arraySubgrid[197] = array_foodSource[key][209];
+	arraySubgrid[198] = array_foodSource[key][192];
+	arraySubgrid[199] = array_foodSource[key][193];
+	arraySubgrid[200] = array_foodSource[key][194];
+	arraySubgrid[201] = array_foodSource[key][201];
+	arraySubgrid[202] = array_foodSource[key][202];
+	arraySubgrid[203] = array_foodSource[key][203];
+	arraySubgrid[204] = array_foodSource[key][210];
+	arraySubgrid[205] = array_foodSource[key][211];
+	arraySubgrid[206] = array_foodSource[key][212];
+	arraySubgrid[207] = array_foodSource[key][195];
+	arraySubgrid[208] = array_foodSource[key][196];
+	arraySubgrid[209] = array_foodSource[key][197];
+	arraySubgrid[210] = array_foodSource[key][204];
+	arraySubgrid[211] = array_foodSource[key][205];
+	arraySubgrid[212] = array_foodSource[key][206];
+	arraySubgrid[213] = array_foodSource[key][213];
+	arraySubgrid[214] = array_foodSource[key][214];
+	arraySubgrid[215] = array_foodSource[key][215];
+	arraySubgrid[216] = array_foodSource[key][216];
+	arraySubgrid[217] = array_foodSource[key][217];
+	arraySubgrid[218] = array_foodSource[key][218];
+	arraySubgrid[219] = array_foodSource[key][225];
+	arraySubgrid[220] = array_foodSource[key][226];
+	arraySubgrid[221] = array_foodSource[key][227];
+	arraySubgrid[222] = array_foodSource[key][234];
+	arraySubgrid[223] = array_foodSource[key][235];
+	arraySubgrid[224] = array_foodSource[key][236];
+	arraySubgrid[225] = array_foodSource[key][219];
+	arraySubgrid[226] = array_foodSource[key][220];
+	arraySubgrid[227] = array_foodSource[key][221];
+	arraySubgrid[228] = array_foodSource[key][228];
+	arraySubgrid[229] = array_foodSource[key][229];
+	arraySubgrid[230] = array_foodSource[key][230];
+	arraySubgrid[231] = array_foodSource[key][237];
+	arraySubgrid[232] = array_foodSource[key][238];
+	arraySubgrid[233] = array_foodSource[key][239];
+	arraySubgrid[234] = array_foodSource[key][222];
+	arraySubgrid[235] = array_foodSource[key][223];
+	arraySubgrid[236] = array_foodSource[key][224];
+	arraySubgrid[237] = array_foodSource[key][231];
+	arraySubgrid[238] = array_foodSource[key][232];
+	arraySubgrid[239] = array_foodSource[key][233];
+	arraySubgrid[240] = array_foodSource[key][240];
+	arraySubgrid[241] = array_foodSource[key][241];
+	arraySubgrid[242] = array_foodSource[key][242];
+	
+	//sudoku E
+	arraySubgrid[243] = array_foodSource[key][2];
+	arraySubgrid[244] = array_foodSource[key][2];
+	arraySubgrid[245] = array_foodSource[key][2];
+	arraySubgrid[246] = array_foodSource[key][2];
+	arraySubgrid[247] = array_foodSource[key][2];
+	arraySubgrid[248] = array_foodSource[key][2];
+	arraySubgrid[249] = array_foodSource[key][2];
+	arraySubgrid[250] = array_foodSource[key][2];
+	arraySubgrid[251] = array_foodSource[key][2];
+	arraySubgrid[252] = array_foodSource[key][2];
+	arraySubgrid[253] = array_foodSource[key][2];
+	arraySubgrid[254] = array_foodSource[key][2];
+	arraySubgrid[255] = array_foodSource[key][2];
+	arraySubgrid[256] = array_foodSource[key][2];
+	arraySubgrid[257] = array_foodSource[key][2];
+	arraySubgrid[258] = array_foodSource[key][2];
+	arraySubgrid[259] = array_foodSource[key][2];
+	arraySubgrid[260] = array_foodSource[key][2];
+	arraySubgrid[261] = array_foodSource[key][2];
+	arraySubgrid[262] = array_foodSource[key][2];
+	arraySubgrid[263] = array_foodSource[key][2];
+	arraySubgrid[264] = array_foodSource[key][2];
+	arraySubgrid[265] = array_foodSource[key][2];
+	arraySubgrid[266] = array_foodSource[key][2];
+	arraySubgrid[267] = array_foodSource[key][2];
+	arraySubgrid[268] = array_foodSource[key][2];
+	arraySubgrid[269] = array_foodSource[key][2];
+	arraySubgrid[270] = array_foodSource[key][2];
+	arraySubgrid[271] = array_foodSource[key][2];
+	arraySubgrid[272] = array_foodSource[key][2];
+	arraySubgrid[273] = array_foodSource[key][2];
+	arraySubgrid[274] = array_foodSource[key][2];
+	arraySubgrid[275] = array_foodSource[key][2];
+	arraySubgrid[276] = array_foodSource[key][2];
+	arraySubgrid[277] = array_foodSource[key][2];
+	arraySubgrid[278] = array_foodSource[key][2];
+	arraySubgrid[279] = array_foodSource[key][2];
+	arraySubgrid[280] = array_foodSource[key][2];
+	arraySubgrid[281] = array_foodSource[key][2];
+	arraySubgrid[282] = array_foodSource[key][2];
+	arraySubgrid[283] = array_foodSource[key][2];
+	arraySubgrid[284] = array_foodSource[key][2];
+	arraySubgrid[285] = array_foodSource[key][2];
+	arraySubgrid[286] = array_foodSource[key][2];
+	arraySubgrid[287] = array_foodSource[key][2];
+	arraySubgrid[288] = array_foodSource[key][2];
+	arraySubgrid[289] = array_foodSource[key][2];
+	arraySubgrid[290] = array_foodSource[key][2];
+	arraySubgrid[291] = array_foodSource[key][2];
+	arraySubgrid[292] = array_foodSource[key][2];
+	arraySubgrid[293] = array_foodSource[key][2];
+	arraySubgrid[294] = array_foodSource[key][2];
+	arraySubgrid[295] = array_foodSource[key][2];
+	arraySubgrid[296] = array_foodSource[key][2];
+	arraySubgrid[297] = array_foodSource[key][2];
+	arraySubgrid[298] = array_foodSource[key][2];
+	arraySubgrid[299] = array_foodSource[key][2];
+	arraySubgrid[300] = array_foodSource[key][];
+	arraySubgrid[301] = array_foodSource[key][];
+	arraySubgrid[302] = array_foodSource[key][];
+	arraySubgrid[303] = array_foodSource[key][];
+	arraySubgrid[304] = array_foodSource[key][];
+	arraySubgrid[305] = array_foodSource[key][];
+	arraySubgrid[306] = array_foodSource[key][];
+	arraySubgrid[307] = array_foodSource[key][];
+	arraySubgrid[308] = array_foodSource[key][];
+	arraySubgrid[309] = array_foodSource[key][];
+	arraySubgrid[310] = array_foodSource[key][];
+	arraySubgrid[311] = array_foodSource[key][];
+	arraySubgrid[312] = array_foodSource[key][];
+	arraySubgrid[313] = array_foodSource[key][];
+	arraySubgrid[314] = array_foodSource[key][];
+	arraySubgrid[315] = array_foodSource[key][];
+	arraySubgrid[316] = array_foodSource[key][];
+	arraySubgrid[317] = array_foodSource[key][];
+	arraySubgrid[318] = array_foodSource[key][];
+	arraySubgrid[319] = array_foodSource[key][];
+	arraySubgrid[320] = array_foodSource[key][];
+	arraySubgrid[321] = array_foodSource[key][];
+	arraySubgrid[322] = array_foodSource[key][];
+	arraySubgrid[323] = array_foodSource[key][];
+
+	// sudoku C
+	arraySubgrid[324] = array_foodSource[key][];
+	arraySubgrid[325] = array_foodSource[key][];
+	arraySubgrid[326] = array_foodSource[key][];
+	arraySubgrid[327] = array_foodSource[key][];
+	arraySubgrid[328] = array_foodSource[key][];
+	arraySubgrid[329] = array_foodSource[key][];
+	arraySubgrid[330] = array_foodSource[key][];
+	arraySubgrid[331] = array_foodSource[key][];
+	arraySubgrid[332] = array_foodSource[key][];
+	arraySubgrid[333] = array_foodSource[key][];
+	arraySubgrid[334] = array_foodSource[key][];
+	arraySubgrid[335] = array_foodSource[key][];
+	arraySubgrid[336] = array_foodSource[key][];
+	arraySubgrid[337] = array_foodSource[key][];
+	arraySubgrid[338] = array_foodSource[key][];
+	arraySubgrid[339] = array_foodSource[key][];
+	arraySubgrid[340] = array_foodSource[key][];
+	arraySubgrid[341] = array_foodSource[key][];
+	arraySubgrid[342] = array_foodSource[key][];
+	arraySubgrid[343] = array_foodSource[key][];
+	arraySubgrid[344] = array_foodSource[key][];
+	arraySubgrid[345] = array_foodSource[key][];
+	arraySubgrid[346] = array_foodSource[key][];
+	arraySubgrid[347] = array_foodSource[key][];
+	arraySubgrid[348] = array_foodSource[key][];
+	arraySubgrid[349] = array_foodSource[key][];
+	arraySubgrid[350] = array_foodSource[key][];
+	arraySubgrid[351] = array_foodSource[key][];
+	arraySubgrid[352] = array_foodSource[key][];
+	arraySubgrid[353] = array_foodSource[key][];
+	arraySubgrid[354] = array_foodSource[key][];
+	arraySubgrid[355] = array_foodSource[key][];
+	arraySubgrid[356] = array_foodSource[key][];
+	arraySubgrid[357] = array_foodSource[key][];
+	arraySubgrid[358] = array_foodSource[key][];
+	arraySubgrid[359] = array_foodSource[key][];
+	arraySubgrid[360] = array_foodSource[key][];
+	arraySubgrid[361] = array_foodSource[key][];
+	arraySubgrid[362] = array_foodSource[key][];
+	arraySubgrid[363] = array_foodSource[key][];
+	arraySubgrid[364] = array_foodSource[key][];
+	arraySubgrid[365] = array_foodSource[key][];
+	arraySubgrid[366] = array_foodSource[key][];
+	arraySubgrid[367] = array_foodSource[key][];
+	arraySubgrid[368] = array_foodSource[key][];
+
+		for (var checker = startSubgrid; checker < endSubgrid; checker ++) {
+			if (array_foodSource[indeksCell] = array_foodSource[checker]){
+				if (indeksCell != checker){
+					indeksSama = checker;
+				}
+			}
+			if (indeksSama != 0){
+			// ada yang sama nilainya dalam subgrid
+			// swap
+			var temp = array_foodSource[key][j];
+			array_foodSource[key][j] = v[key][j];
+			v[key][j] = temp;
+		}else{
+			// langsung replace
+			array_foodSource[key][j] = v[key][j];
+		}
+	}
+}*/
+
+/*function scoutBee(array_foodSource, callback){
+	var scout_bee = 0.1 * employed_bee;
+	generateFoodSource (array_soal, scout_Bee);
+	hitungFitness();
+	if (fitness_scout > fitness_lama){
+		array_foodSource = array_scout [];
+	}
+}*/
 
 /* HELPERS */
 function getRandomInt(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
+function randomExcluded(min, max, excluded) {
+    var n = Math.floor(Math.random() * (max-min) + min);
+    if (n == excluded) n++;
+    return n;
+}
 
 /* IO */
 function saveData(key, data){
@@ -687,21 +1243,6 @@ function getData(key){
 function clearData(key){
 	window.localStorage.removeItem(key);
 }
-
-// modul coba
-function hitungFitness(key){
-	window.localStorage.removeItem(key);
-}
-
-function cekSubgrid(indeksCell){
-	var checker;
-	var startSubgrid = indeksCell - indeksCell % 9;
-	var endSubgrid;
-	for (var checker = 0; i < Things.length; i++) {
-		Things[i]
-	}
-}
-
 
 
 /* DEBUG */
