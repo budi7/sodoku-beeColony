@@ -23,3 +23,7 @@
  .border-left{
  	border-left: 2px solid black !important;
  } 
+ body{
+ 	background-color: #e9ece5;
+ 	color: #3b3a36;
+ }
