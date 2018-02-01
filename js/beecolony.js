@@ -50,6 +50,7 @@ var processInput = function(){
 
 	// modules
 	function privateModule(){
+		console.log('iterasi ke - ', ctr);
 		checkMissingNumber(getData('foodSource'), function(error_foodSource){
 			hitungFitness(error_foodSource, function(fitness){
 				totalFitness(fitness, function(total_fitness){
@@ -58,16 +59,17 @@ var processInput = function(){
 							neighborhoodSearch(jumlah_onlooker, function(array_foodsource_terbaru){
 								scoutBee(array_foodsource_terbaru, function(foodsource_iterasibaru){
 									// do while ctr = ?
-									if(ctr < iterasi){
+									ctr++;
+
+									if(ctr <= iterasi){
 										privateModule();
 									}
-									ctr++;
 								});
 							});
-							console.log('jumlah_Onlooker = ' + jumlah_onlooker);
+							// console.log('jumlah_Onlooker = ' + jumlah_onlooker);
 						});
 					});
-				console.log('fitnessnya = ' + fitness + ', total fitnessnya = ' + total_fitness);
+				// console.log('fitnessnya = ' + fitness + ', total fitnessnya = ' + total_fitness);
 				});	
 			});
 		});
@@ -468,7 +470,7 @@ var getSoal = function(callback){
 			array_null.push(key);
 		}
 	});
-	console.log('array null ' + array_null);
+	// console.log('array null ' + array_null);
 	saveData('kosong', array_null);
 
 	// modul return
@@ -672,7 +674,7 @@ var checkMissingNumber = function(array_foodSource, callback){
 			}
 		}
 
-		console.log('Total error foodsource ke-' + (parseInt(key) +1 ) + ' = ' + total_error);
+		console.log('Total error foodsource ke-' + (parseInt(key) + 1 ) + ' = ' + total_error);
 		error_foodSource.push(total_error);
 
 	});
@@ -703,7 +705,7 @@ function hitungFitness(error_foodSource, callback){
 	Object.keys(error_foodSource).forEach(function(key){
 		var fit = 1 / (1 + error_foodSource[key]);
 		fitness.push(fit);
-		console.log('fitness food source ke-' + (parseInt(key) + 1) + ' = ' + fitness[key]);
+		// console.log('fitness food source ke-' + (parseInt(key) + 1) + ' = ' + fitness[key]);
 	});
 		// modul return
 		if(callback) { callback(fitness); }
@@ -714,7 +716,7 @@ function hitungFitness(error_foodSource, callback){
 		Object.keys(fitness).forEach(function(key){
 			total_fitness = total_fitness + fitness[key];
 		});
-		console.log('total fitness = ' + total_fitness);
+		// console.log('total fitness = ' + total_fitness);
 
 		if(callback) { callback(total_fitness);}
 	}	
@@ -724,7 +726,7 @@ function hitungFitness(error_foodSource, callback){
 		Object.keys(fitness).forEach(function(key){
 			var prob = fitness[key] / total_fitness;
 			prob_onlooker.push(prob);
-			console.log('Prob food source ke-' + (parseInt(key) + 1) + ' = ' + prob_onlooker[key]);
+			// console.log('Prob food source ke-' + (parseInt(key) + 1) + ' = ' + prob_onlooker[key]);
 		});
 		if(callback) { callback(prob_onlooker);}
 	};
@@ -734,7 +736,7 @@ function hitungFitness(error_foodSource, callback){
 		Object.keys(prob_onlooker).forEach(function(key){
 			var jumlah = prob_onlooker[key] * onlooker_bee;
 			jumlah_onlooker.push(jumlah);
-			console.log('Jumlah onlooker food source ke-' + (parseInt(key) + 1) + ' = ' + jumlah_onlooker[key]);
+			// console.log('Jumlah onlooker food source ke-' + (parseInt(key) + 1) + ' = ' + jumlah_onlooker[key]);
 		});
 
 		if(callback) { callback(jumlah_onlooker);}
@@ -746,11 +748,10 @@ function hitungFitness(error_foodSource, callback){
 		var array_foodSource = getData('foodSource');
 		var array_null = getData('kosong');
 
-		console.log("here");
-		console.log(array_foodSource);
+		// console.log(array_foodSource);
 
-		console.log(array_foodSource);
-		console.log(array_null);
+		// console.log(array_foodSource);
+		// console.log(array_null);
 		Object.keys(jumlah_onlooker).forEach(function(key){
 			if (jumlah_onlooker[key] > 0){
 				var temp = array_foodSource[key].slice();
@@ -766,10 +767,10 @@ function hitungFitness(error_foodSource, callback){
 					// console.log('nilai k untuk key ' + key + ' = ' + k);
 					
 					var indeks_null = getRandomInt(0, parseInt(array_null.length -1));
-					console.log('Jumlah kotak kosong = ' + array_null.length);
-					console.log('Indeks Null = ' + indeks_null);
+					// console.log('Jumlah kotak kosong = ' + array_null.length);
+					// console.log('Indeks Null = ' + indeks_null);
 					j = array_null[indeks_null];
-					console.log('Indeks yang dikerjakan = ' + j);
+					// console.log('Indeks yang dikerjakan = ' + j);
 					
 					var teta = Math.random() < 0.5 ? -1 : 1;
 
@@ -781,30 +782,30 @@ function hitungFitness(error_foodSource, callback){
 					}
 					temp[j] = neighbor;
 
-					console.log('food source key ' + key + ' = ' + array_foodSource[key][j]);
-					console.log('food source k ' + k + ' = ' + array_foodSource[k][j]);
-					console.log('teta = ' + teta);
-					console.log('neighbor = ' + temp[j]);
+					// console.log('food source key ' + key + ' = ' + array_foodSource[key][j]);
+					// console.log('food source k ' + k + ' = ' + array_foodSource[k][j]);
+					// console.log('teta = ' + teta);
+					// console.log('neighbor = ' + temp[j]);
 
 					// check new fitness
-					console.log('temp = ' + temp);
+					// console.log('temp = ' + temp);
 					// saveData('temporaryNeighbor', temp);
-					console.log('array foodsource = ' + array_foodSource[key]);
+					// console.log('array foodsource = ' + array_foodSource[key]);
 					// saveData('arrayFoodsource', array_foodSource[key]);
 
 					// console.log(array_foodSource[key]);
-					console.log('ini array foodsource key (bawah)')
+					// console.log('ini array foodsource key (bawah)')
 					debug.showModeledData(array_foodSource[key]);
-					console.log('ini array temp (bawah)')
+					// console.log('ini array temp (bawah)')
 					debug.showModeledData(temp);
 					/*var tmp_arr = {
 						0: array_foodSource[key]
 					}*/
 
-					console.log("k = ", k);
+					// console.log("k = ", k);
 					debug.showModeledData(array_foodSource[k]);
 
-					console.log("key = ", key);
+					// console.log("key = ", key);
 
 					var fitness_lama;
 					var fitness_baru;
@@ -816,8 +817,8 @@ function hitungFitness(error_foodSource, callback){
 									fitness_lama = rslt2;
 									fitness_baru = rslt4;
 									bandingkan(fitness_lama, fitness_baru, array_foodSource[key][j], temp, j, array_foodSource[key], neighbor, function(){
-										console.log('array_foodSource bandingka = ', array_foodSource[key][j]);
-										console.log('nilai neighbor = ', neighbor);
+										// console.log('array_foodSource bandingkan = ', array_foodSource[key][j]);
+										// console.log('nilai neighbor = ', neighbor);
 
 										if (callback){ callback(array_foodSource);}
 									});
@@ -827,8 +828,6 @@ function hitungFitness(error_foodSource, callback){
 					});
 
 				}
-			}else{
-				console.log('gagal');
 			}
 		});
 	}
@@ -845,7 +844,7 @@ function hitungFitness(error_foodSource, callback){
 			cekSubgrid(nilai_lama, array_baru, indeks_neighbor, function(rslt3){
 				if(rslt3 && rslt3 >= 0){
 					array_foodSource[rslt3] = nilai_lama;
-					console.log('array_foodSource indeks ', rslt3, ' = ', array_foodSource[rslt3], ", ", nilai_lama);
+					// console.log('array_foodSource indeks ', rslt3, ' = ', array_foodSource[rslt3], ", ", nilai_lama);
 				}
 				array_foodSource[indeks_neighbor] = neighbor;
 				if(callback) { callback(rslt3);} 
@@ -856,7 +855,7 @@ function hitungFitness(error_foodSource, callback){
 	function cekSubgrid(nilai_lama, array_temp, indeks_neighbor, callback){
 		var nilai_neighbor = array_temp[indeks_neighbor];
 		array_temp[indeks_neighbor] = parseInt(array_temp[indeks_neighbor] + 20);
-		console.log('array_temp indeks_neighbor = ', array_temp[indeks_neighbor]);
+		// console.log('array_temp indeks_neighbor = ', array_temp[indeks_neighbor]);
 		var indeks_normal;
 
 		var array_subgrid = [];
@@ -1241,16 +1240,16 @@ function hitungFitness(error_foodSource, callback){
 		var checker;
 		var indeks_cell = array_subgrid.indexOf(parseInt(nilai_neighbor + 20));
 
-		console.log('array_subgrid indeks_neighbor = ', array_temp[indeks_neighbor]);
-		console.log('array temp indeks subgrid = ', array_subgrid[indeks_cell]);
+		// console.log('array_subgrid indeks_neighbor = ', array_temp[indeks_neighbor]);
+		// console.log('array temp indeks subgrid = ', array_subgrid[indeks_cell]);
 		
 		array_subgrid[indeks_cell] = nilai_neighbor;
-		console.log('nilai_neighbor = ', nilai_neighbor);
-		console.log('indeks subgrid = ', indeks_cell);
+		// console.log('nilai_neighbor = ', nilai_neighbor);
+		// console.log('indeks subgrid = ', indeks_cell);
 		var start_subgrid = parseInt(indeks_cell) - parseInt(mod(indeks_cell,9));
-		console.log('start subgrid = ', start_subgrid);
+		// console.log('start subgrid = ', start_subgrid);
 		var end_subgrid = parseInt(indeks_cell) + parseInt(8 - parseInt(mod(indeks_cell,9)));
-		console.log('end subgrid = ', end_subgrid);
+		// console.log('end subgrid = ', end_subgrid);
 		var indeks_sama = 0;
 		array_subgrid[indeks_cell] = parseInt(array_subgrid[indeks_cell] - 20);
 
@@ -1644,8 +1643,8 @@ function hitungFitness(error_foodSource, callback){
 					array_temp[367] = array_subgrid[367];
 					array_temp[368] = array_subgrid[368];
 				
-				console.log('indeks sama = ', indeks_sama);
-				console.log('nilai lama = ', nilai_lama);
+				// console.log('indeks sama = ', indeks_sama);
+				// console.log('nilai lama = ', nilai_lama);
 
 				indeks_normal = array_temp.indexOf(parseInt(nilai_neighbor + 20));
 		}
@@ -1660,23 +1659,54 @@ function scoutBee(array_foodSource, callback){
 			hitungFitness(rslt2, function(rslt3){
 				checkMissingNumber(array_foodSource, function(rslt4){
 					hitungFitness(rslt4, function(rslt5){
-						rslt5.sort();
-						console.log('rslt 5 = ', rslt5);
-						var fitness_sort = [];
-						console.log('rslt 3 ', rslt3);
-						for (var i = 0; i < scout_bee; i ++) {
-							fitness_sort.push(rslt3[i]);
-							fitness_sort.push(rslt5[i]);
-						}
-						fitness_sort.sort();
-						console.log('fitness sort ', fitness_sort);
-						fitness_sort.reverse();
-						console.log('fitness sort reverse ', fitness_sort);
-						for (var i = 0; i < scout_bee; i++) {
-							fitness_sort[i]
+						// copy fitness food source untuk pemeriksaan
+						var sort_fitness = rslt5.slice();
+						sort_fitness.sort();
+						// console.log('rslt 5 = ', rslt5);
+						// console.log('sort fitness = ', sort_fitness);
+
+						var foodsource_iterasibaru = [];
+						// console.log('array_foodSource = ', array_foodSource);
+
+						// isi foodsource iterasi baru dengan foodsource fitness terbaik
+						var indeks_foodsource;
+						for (var i = parseInt(scout_bee - 1); i < employed_bee; i++) {
+							indeks_foodsource = rslt5.indexOf(sort_fitness[i]);
+							// console.log('indeks_foodsource = ', indeks_foodsource);
+							// console.log('rslt 5 = ', rslt5);
+							// console.log('sort_fitness[i] = ', sort_fitness[i]);
+
+							foodsource_iterasibaru.push(array_foodSource[indeks_foodsource]);
+							// console.log('foodsource_iterasibaru = ', foodsource_iterasibaru);
 						}
 
-						var foodsource_iterasibaru = null;
+						var fitness_sort = [];
+						// console.log('rslt 3 ', rslt3);
+						for (var i = 0; i < scout_bee; i ++) {
+							fitness_sort.push(rslt3[i]);
+							fitness_sort.push(sort_fitness[i]);
+						}
+
+						fitness_sort.sort();
+						// console.log('fitness sort ', fitness_sort);
+						// yang terbaik yang pertama
+						fitness_sort.reverse();
+						// console.log('fitness sort reverse ', fitness_sort);
+						
+						var indeks_scoutbee;
+						for (var i = 0; i < scout_bee; i++) {
+							if(parseInt(foodsource_iterasibaru.length) < employed_bee){
+								indeks_foodsource = rslt5.indexOf(fitness_sort[i]);
+								if (indeks_foodsource >= 0){
+									foodsource_iterasibaru.push(array_foodSource[indeks_foodsource]);
+								}else{
+									indeks_scoutbee = rslt3.indexOf(fitness_sort[i]);
+									foodsource_iterasibaru.push(rslt[indeks_scoutbee]);
+								}
+							} 
+						}
+						saveData('foodSource', foodsource_iterasibaru);
+						// console.log('iterasi baru = ', foodsource_iterasibaru);
 						if(callback) { callback(foodsource_iterasibaru);}
 					});
 				});
