@@ -1659,20 +1659,26 @@ function scoutBee(array_foodSource, callback){
 			hitungFitness(rslt2, function(rslt3){
 				checkMissingNumber(array_foodSource, function(rslt4){
 					hitungFitness(rslt4, function(rslt5){
-						// copy fitness food source untuk pemeriksaan
+						var sort_fitness_show = rslt5.slice();
+						sort_fitness_show.sort();
+						sort_fitness_show.reverse();
+
 						for(i = 0; i < employed_bee; i++){
 							console.log('foodsource ke - ', i);
-							debug.showModeledData(array_foodSource[i]);
-							console.log('fitnessnya = ', rslt5[i]);
+							indeks_foodsource = rslt5.indexOf(sort_fitness_show[i]);
+							debug.showModeledData(array_foodSource[indeks_foodsource]);
+							console.log('fitnessnya = ', sort_fitness_show[i]);
 						} 
 
-						var sort_fitness = rslt5.slice();
-						sort_fitness.sort();
 						// console.log('rslt 5 = ', rslt5);
 						// console.log('sort fitness = ', sort_fitness);
 
 						var foodsource_iterasibaru = [];
 						// console.log('array_foodSource = ', array_foodSource);
+
+						// copy fitness food source untuk pemeriksaan
+						var sort_fitness = rslt5.slice();
+						sort_fitness.sort();
 
 						// isi foodsource iterasi baru dengan foodsource fitness terbaik
 						var indeks_foodsource;
