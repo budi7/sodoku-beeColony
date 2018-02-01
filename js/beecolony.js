@@ -59,11 +59,11 @@ var processInput = function(){
 							neighborhoodSearch(jumlah_onlooker, function(array_foodsource_terbaru){
 								scoutBee(array_foodsource_terbaru, function(foodsource_iterasibaru){
 									// do while ctr = ?
-									ctr++;
-
+									ctr ++;
 									if(ctr <= iterasi){
 										privateModule();
 									}
+
 								});
 							});
 							// console.log('jumlah_Onlooker = ' + jumlah_onlooker);
@@ -674,7 +674,7 @@ var checkMissingNumber = function(array_foodSource, callback){
 			}
 		}
 
-		console.log('Total error foodsource ke-' + (parseInt(key) + 1 ) + ' = ' + total_error);
+		// console.log('Total error foodsource ke-' + (parseInt(key) + 1 ) + ' = ' + total_error);
 		error_foodSource.push(total_error);
 
 	});
@@ -795,15 +795,15 @@ function hitungFitness(error_foodSource, callback){
 
 					// console.log(array_foodSource[key]);
 					// console.log('ini array foodsource key (bawah)')
-					debug.showModeledData(array_foodSource[key]);
+					//debug.showModeledData(array_foodSource[key]);
 					// console.log('ini array temp (bawah)')
-					debug.showModeledData(temp);
+					//debug.showModeledData(temp);
 					/*var tmp_arr = {
 						0: array_foodSource[key]
 					}*/
 
 					// console.log("k = ", k);
-					debug.showModeledData(array_foodSource[k]);
+					//debug.showModeledData(array_foodSource[k]);
 
 					// console.log("key = ", key);
 
@@ -833,12 +833,12 @@ function hitungFitness(error_foodSource, callback){
 	}
 
 	var bandingkan = function(fitness_lama, fitness_baru, nilai_lama, array_baru, indeks_neighbor, array_foodSource, neighbor, callback){
-		console.log('fitness lama = ' + fitness_lama);
-		console.log('fitness baru = ' + fitness_baru);
+		// console.log('fitness lama = ' + fitness_lama);
+		// console.log('fitness baru = ' + fitness_baru);
 		var rslt3;
 
 		if (fitness_baru >= fitness_lama){
-			console.log('bagusan yang baru');
+			// console.log('bagusan yang baru');
 			
 			// menandai yang mana neighbor, indeks untuk pengecekan berubah
 			cekSubgrid(nilai_lama, array_baru, indeks_neighbor, function(rslt3){
@@ -1660,6 +1660,12 @@ function scoutBee(array_foodSource, callback){
 				checkMissingNumber(array_foodSource, function(rslt4){
 					hitungFitness(rslt4, function(rslt5){
 						// copy fitness food source untuk pemeriksaan
+						for(i = 0; i < employed_bee; i++){
+							console.log('foodsource ke - ', i);
+							debug.showModeledData(array_foodSource[i]);
+							console.log('fitnessnya = ', rslt5[i]);
+						} 
+
 						var sort_fitness = rslt5.slice();
 						sort_fitness.sort();
 						// console.log('rslt 5 = ', rslt5);
@@ -1705,6 +1711,7 @@ function scoutBee(array_foodSource, callback){
 								}
 							} 
 						}
+
 						saveData('foodSource', foodsource_iterasibaru);
 						// console.log('iterasi baru = ', foodsource_iterasibaru);
 						if(callback) { callback(foodsource_iterasibaru);}
